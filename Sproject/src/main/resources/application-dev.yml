@@ -1,0 +1,30 @@
+server:
+  port: 8084
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://47.98.135.95/sprin?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.crm.dao
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#showSql
+
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+jasypt:
+  encryptor:
+    password: text

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    <script th:src="@{/js/y.js}"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/poppe.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap4.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:include="com/heart :: style">
+</style>
+<style>
+    .box{
+        width:97%;
+        height:88%;
+        margin: 10px 15px;
+        padding: 10px 20px;
+        border:2px solid #dedede;
+        border-radius: 10px;
+    }
+    .box2{
+        width:100%;
+        height:5%;
+        text-align: center;
+        border-top: 1px solid  #dedede;
+        margin-top: 17px;
+    }
+    .up_box{
+        width:50%;
+        height:50%;
+        margin-top:1%;
+        margin-left: 25%;
+        background: #f5f5f5;
+        padding-top: 4%;
+        padding-left: 5%;
+    }
+    .up_box td{
+        width:6%;
+        height:40px;
+    }
+    .no_pass{
+        color: red;
+    }
+    .pass_no{
+        color: red;
+    }
+    .Dao1{
+        display: none;
+    }
+</style>
+<body>
+<div class="container-fluid" >
+    <div class="content" >
+        <div class="row" >
+            <div class="col-6">
+                <ul >
+                    <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                    <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+                </ul>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <ul >
+                    <li ><img th:src="@{/image/help.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/set.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/icon_user.png}" alt="" width="32px" height="32px"></li>
+                    <li th:text="${name}"></li>
+                    <li style="margin-left:10%;"><a href="/"><img th:src="@{/image/exit.png}" alt="" width="28px" height="28px"></a></li>
+                    <li>退出</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content_1 center-block">
+        <div class="row">
+            <div class="col-2" >
+                <h5><b>寝室维修管理</b></h5>
+                <ul class="Dao">
+                    <li >
+                        <a th:href="@{/Home}"> 首页</a>
+                    </li>
+                    <li  style="background: none">
+                        <a th:href="@{Apply}" >寝室报修申请</a>
+                        <ul class="Dao1">
+                            <li class="add_bg"> <a th:href="@{#}" >申报查询</a></li>
+                            <li> <a th:href="@{/apply/apply_1}" >维修申请</a></li>
+                            <li> <a th:href="@{/apply/apply_2}" >维修进度</a></li>
+                            <li><a th:href="@{/apply/apply_3}" >问题反馈</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a th:href="@{/History}">寝室维修历史</a>
+                    </li>
+                    <li class="add_bg">
+                        <a th:href="@{#}">修改密码</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <div class="up_box">
+                        <form action="">
+                            <table>
+                                <tr>
+                                    <td>原密码</td>
+                                    <td ><input type="text" class="password"><br><span class="no_pass" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td>新密码</td>
+                                    <td ><input type="text" class="n_password"></td>
+                                </tr>
+                                <tr>
+                                    <td>确认新密码</td>
+                                    <td ><input type="text" class="n1_password"><br><span class="pass_no" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input type="button" class="btn btn-primary btn-sm" value="提交" id="btn"></td>
+                                </tr>
+                            </table>
+
+                        </form>
+
+                    </div>
+                </div>
+                <div class="box2">
+                    <p >Designed by xia & ok</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:include="com/heart :: script">
+</script>
+<script>
+    $(function () {
+        $(".Dao>li").eq(1).siblings().click(function () {
+            $(".Dao1").hide();
+        })
+        $(".Dao>li:nth-child(2)").click(function () {
+            $(".Dao1").toggle();
+        })
+        $(".Dao1>li").click(function() {
+            $(this).addClass("add_bg");
+            $(this).siblings().removeClass("add_bg");
+        });
+        $("#btn").click(function () {
+            $.ajax({
+                url: "/passOk",
+                type: "post",
+                dataType: "text",
+                data: {
+                    "password":$(".password").val()
+                },
+                success: function (data) {
+                    console.log(data);
+                    if(data==="no"){
+                        $(".no_pass").text("密码输入与原密码不同，请重新输入");
+                    }
+                    else{
+                        $(".no_pass").empty();
+                    }
+
+                }
+
+            });
+            if($(".no_pass").text()=="密码输入与原密码不同，请重新输入"){
+                $(".password").focus();
+            }
+            else if($(".n1_password").val()!=$(".n_password").val()){
+                      $(".pass_no").text("密码输入不一致，请重新输入");
+                      $(".n1_password").focus();
+            }
+            else {
+                $(".pass_no").empty();
+                if($(".n_password").val()==""){
+                    alert("新密码不能为空");
+                    $(".n_password").focus();
+                }
+                else {
+                    $.ajax({
+                        url: "/updatePass",
+                        type: "post",
+                        dataType: "text",
+                        data: {
+                            "password": $(".n_password").val()
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data === "yes") {
+                                console.log("修改成功");
+                                alert("修改成功,请重新登录");
+                                window.location.href = "/";
+                            } else {
+                                console.log("修改失败");
+                            }
+
+                        }
+
+                    });
+                }
+            }
+
+        })
+        $(".n_password").focus(function () {
+            $.ajax({
+                url: "/passOk",
+                type: "post",
+                dataType: "text",
+                data: {
+                   "password":$(".password").val()
+                },
+                success: function (data) {
+                    console.log(data);
+                    if(data==="no"){
+                             $(".no_pass").text("密码输入与原密码不同，请重新输入");
+                        $(".password").focus();
+                    }
+                    else{
+                        $(".no_pass").empty();
+                    }
+
+                }
+
+            });
+        })
+
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" th:action="@{/getting}" th:object="${user}">
+    <label>name</label>
+    <input type="text" th:field="*{name}">
+    <label>Ages</label>
+    <input type="text" th:field="*{ages}">
+    <input type="submit" value="提交">
+</form> <form method="post" th:action="@{/getting}" th:object="${maintain}">
+    <table>
+        <tr>
+            <td>系别: <input type="text" th:field="*{xi}"></td>
+            <td>  班级: <input type="text" th:field="*{clas}"></td>
+        </tr>
+        <tr>
+            <td> 楼号: <input type="text" th:field="*{lnub}"></td>
+            <td> 宿舍号: <input type="text" th:field="*{snub}"></td>
+        </tr>
+        <tr>
+            <td> 申请人姓名: <input type="text" th:field="*{name}"></td>
+            <td>  申请人电话: <input type="text" th:field="*{phone}"></td>
+        </tr>
+        <tr>
+            <td colspan="2" >损坏概况:<br>
+                <textarea rows="3" cols="40" th:field="*{content}"></textarea></td>
+        </tr>
+        <tr>
+            <td align="center">  <input type="submit"value="提交" ></td>
+            <td align="center"> <input type="reset" value="重置"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

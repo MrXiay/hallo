@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.mapper.RootUserMapper">
+    <select id="Login" resultType="com.crm.dao.RootUser" parameterType="com.crm.dao.RootUser">
+        select * from rootuser where number=#{number} and password=#{password}
+    </select>
+    <update id="UpdatePass"  >
+        update rootuser set password=#{password} where number=#{number}
+    </update>
+    <update id="UpDateById"  >
+        update maintain_table set xi=#{xi},clas=#{clas},lnub=#{lnub},snub=#{snub},name=#{name},phone=#{phone},content=#{content},state="已通过" where id=#{id}
+    </update>
+</mapper>

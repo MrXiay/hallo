@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    <script th:src="@{/js/y.js}"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/poppe.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap4.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:include="com/heart :: style">
+</style>
+<style>
+    .box{
+        width:97%;
+        height:88%;
+        margin: 10px 15px;
+        padding-left:30%;
+        padding-top:5%;
+        border:2px solid #dedede;
+        border-radius: 10px;
+        color: #2aabd2;
+    }
+    .box2{
+        width:100%;
+        height:5%;
+        text-align: center;
+        border-top: 1px solid  #dedede;
+        margin-top: 17px;
+    }
+    .Dao1{
+        display: none;
+    }
+</style>
+<body>
+<div class="container-fluid" >
+<div class="content" >
+    <div class="row" >
+        <div class="col-6">
+            <ul >
+                <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+            </ul>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4">
+            <ul >
+                <li ><img th:src="@{/image/help.png}" alt="" width="23px" height="23px"></li>
+                <li ><img th:src="@{/image/set.png}" alt="" width="23px" height="23px"></li>
+                <li ><img th:src="@{/image/icon_user.png}" alt="" width="32px" height="32px"></li>
+                <li th:text="${name}"></li>
+                <li style="margin-left:10%;"><a href="/"><img th:src="@{/image/exit.png}" alt="" width="28px" height="28px"></a></li>
+                <li>退出</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content_1 center-block">
+    <div class="row">
+        <div class="col-2" >
+            <h5><b>寝室维修管理</b></h5>
+            <ul class="Dao">
+                <li class="add_bg">
+                    <a th:href="@{#}"> 首页</a>
+                </li>
+                <li  style="background: none">
+                    <a th:href="@{/Apply}" >寝室报修申请</a>
+                    <ul class="Dao1">
+                        <li class="add_bg"> <a th:href="@{#}" >申报查询</a></li>
+                        <li> <a th:href="@{/apply/apply_1}" >维修申请</a></li>
+                        <li> <a th:href="@{/apply/apply_2}" >维修进度</a></li>
+                        <li><a th:href="@{/apply/apply_3}" >问题反馈</a></li>
+                    </ul>
+                </li>
+                <li >
+                    <a th:href="@{/History}">寝室维修历史</a>
+                </li>
+                <li >
+                    <a th:href="@{/UpPass}">修改密码</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10">
+            <div class="box">
+                <h1>欢迎来到</h1>
+                <h2>寝室维修管理系统</h2>
+<!--                <div id="demo" class="carousel slide" data-ride="carousel" >-->
+
+<!--                    &lt;!&ndash; 指示符 &ndash;&gt;-->
+<!--                    <ul class="carousel-indicators">-->
+<!--                        <li data-target="#demo" data-slide-to="0" class="active"></li>-->
+<!--                        <li data-target="#demo" data-slide-to="1"></li>-->
+<!--                        <li data-target="#demo" data-slide-to="2"></li>-->
+<!--                    </ul>-->
+
+<!--                    &lt;!&ndash; 轮播图片 &ndash;&gt;-->
+<!--                    <div class="carousel-inner" >-->
+<!--                        <div class="carousel-item active">-->
+<!--                            <img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="carousel-item">-->
+<!--                            <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="carousel-item">-->
+<!--                            <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; 左右切换按钮 &ndash;&gt;-->
+<!--                    <a class="carousel-control-prev" href="#demo" data-slide="prev">-->
+<!--                        <span class="carousel-control-prev-icon"></span>-->
+<!--                    </a>-->
+<!--                    <a class="carousel-control-next" href="#demo" data-slide="next">-->
+<!--                        <span class="carousel-control-next-icon"></span>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+
+            </div>
+            <div class="box2">
+                <p >Designed by xia & ok</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<script th:include="com/heart :: script">
+</script>
+<script>
+    $(function(){
+        $(".Dao>li:nth-child(2)").click(function () {
+            $(".Dao1").toggle();
+        })
+        $(".Dao>li").eq(1).siblings().click(function () {
+            $(".Dao1").hide();
+        })
+        $(".Dao1>li").click(function() {
+            $(this).addClass("add_bg");
+            $(this).siblings().removeClass("add_bg");
+        });
+        $(".nav_2").click(function(){
+
+            $(this).children("ul").toggle();
+        })
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    <script th:src="@{/js/y.js}"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/poppe.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap4.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:include="com/heart :: style">
+</style>
+<style>
+    .box{
+        width:97%;
+        height:88%;
+        margin: 10px 15px;
+        padding: 10px 20px;
+        border:2px solid #dedede;
+        border-radius: 10px;
+    }
+    .box2{
+        width:100%;
+        height:5%;
+        text-align: center;
+        border-top: 1px solid  #dedede;
+        margin-top: 17px;
+    }
+    .box1{
+        width:100%;
+        height:100%;
+        border:1px solid #dedede;
+        padding: 5px 8px;
+    }
+    .box_li2_1{
+        widht:100%;
+        height:30px;
+        padding: 3px 10px;
+        border: 1px solid #dedede;
+        border-radius: 5px;
+        color: #3e8f3e;
+        margin-bottom: 2px;
+    }
+    .box_li2_3{
+        margin-top:1%;
+        width:100%;
+        height:75%;
+        border: 1px solid #dedede;
+        padding: 5px 5px;
+        overflow: auto;
+    }
+    .box_li2_2{
+        width:100%;
+        height:5%;
+        margin-top:1%;
+    }
+    .box_li2_2 ul{
+        margin-left: 28%;
+    }
+    .card_box{
+        width:24%;
+        height:47%;
+       border: 1px solid #dedede;
+        float: left;
+        margin-left:8px;
+        margin-top: 8px;
+        border-radius:8px;
+    }
+    .card_box>div{
+        float: left;
+    }
+    .card_box h5{
+       margin-top:14px;
+        text-align: center;
+    }
+    .card_box input{
+       outline: none;
+        border: none;
+        background: none;
+        width:96%;
+    }
+    .card_box_log{
+        width:40%;
+        height:40%;
+        border: 1px solid blue;
+        z-index: 1;
+        display: none;
+        background: white;
+        position: fixed;
+        top:30%;
+        left:40%;
+    }
+    .box_u1{
+        width:100%;
+        height:10%;
+        background: #f5f5f5;
+
+    }
+    .btn_exit{
+        border: none;
+        outline: none;
+        width:20px;
+        height:20px;
+        background:url("/image/return.png") no-repeat ;
+        background-size: cover;
+        margin-left:95%;
+    }
+    .update_ul{
+        margin-left: 3%;
+        margin-top: 10px;
+    }
+    .update_ul li{
+        float: left;
+        list-style: none;
+    }
+    form{
+        padding: 0;
+        margin-top: -7%;
+    }
+</style>
+<body>
+<div class="card_box_log win">
+    <div class="box_u1 wTop">
+        <span ><button class="btn_exit"></button></span>
+    </div>
+
+    <div style="width:100%;padding: 4% 25%;" class="container">
+        <div class="input-group mb-3 input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">姓名</span>
+            </div>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="input-group mb-3 input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">电话</span>
+            </div>
+            <input type="text" class="form-control" id="phone">
+        </div>
+        <div class="input-group mb-3 input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">住址</span>
+            </div>
+            <input type="text" class="form-control" id="location">
+        </div>
+        <button type="button" class="btn btn-primary" id="submit" >保存</button>
+    </div>
+</div>
+<div class="container-fluid" >
+    <div class="content" >
+        <div class="row" >
+            <div class="col-6">
+                <ul >
+                    <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                    <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+                </ul>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <ul >
+                    <li ><img th:src="@{/image/help.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/set.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/icon_user.png}" alt="" width="32px" height="32px"></li>
+                    <li th:text="${name}"></li>
+                    <li style="margin-left:10%;"><a href="/"><img th:src="@{/image/exit.png}" alt="" width="28px" height="28px"></a></li>
+                    <li>退出</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content_1 center-block">
+        <div class="row">
+            <div class="col-2" >
+                <h5><b>寝室维修管理</b></h5>
+                <ul class="Dao">
+                    <li >
+                        <a th:href="@{/rootHome}"> 首页</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootApply}">寝室维修申请数据管理</a>
+                    </li>
+                    <li class="add_bg">
+                        <a th:href="@{#}">维修师傅通话蒲</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootLeave}">学生反馈管理</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootUpPass}">修改密码</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <div class="box1">
+                        <div class="box_li2_1">
+                            您可以对维修师傅电话进行增、删、查、改等管理
+                        </div>
+                       <div style="width:100%;height:7%;">
+                            <ul class="update_ul">
+                                <li>&nbsp;姓名&nbsp;&nbsp;<input type="text"  name="master_name" class="Master_name" style="outline: none;border-left: none;border-top: none;border-right: none" placeholder="请输入姓名">&nbsp;&nbsp;
+                                    <input type="button" id="Select" class="btn btn-info btn-sm" value="查询">
+                                    &nbsp;&nbsp;&nbsp;
+                                </li>
+                                <li><a th:href="@{/rootPhone}"><img th:src="@{/image/update.png}" alt="" width="30px"></a></li>
+                            </ul>
+                       </div>
+                        <div class="box_li2_3" >
+                            <div class="card_box" th:each="master,state : ${masters}">
+                                <div style="width:40%;">
+                                    <img src="https://static.runoob.com/images/mix/img_avatar.png"  style="width:100%;border-radius:8px 0 0 0 ;">
+                                    <h5 th:text="${master.name}"></h5>
+                                </div>
+                                <div style="width:60%;padding-top:2px;padding-left: 10px;">
+                                    <a href="javascript:void(0)" style="margin-left: 84%;" th:title="${master.id}" class="Del" onclick="Del(this)"><img th:src="@{/image/return.png}" alt="" width="16px"></a>
+                                    <i>Tel:</i> <input type="text" readonly="readonly" class="phone" th:value="${master.phone}" >
+                                    <i>住址：</i><input type="text" readonly="readonly" class="location" th:value="${master.location}">
+                                    <a href="javascript:void(0)" style="" class="Edit" th:title="${master.id}" onclick="Del(this)"><img th:src="@{/image/Bian.png}"  alt="" width="18px"></a>
+                                </div>
+                            </div>
+                        </div>
+                            <a href="javascript:void(0)" style="margin-left:50%;margin-top:2%;" class="eject"><img th:src="@{/image/add.png}" alt="" width="3%"></a>
+<!--                        <div class="box_li2_2">-->
+<!--                            <ul class="pagination pagination-sm">-->
+<!--                                <li class="page-item" th:if="${pageInfo.hasPreviousPage}">-->
+<!--                                    <a class="page-link" th:href="'/PageSelectMaster?pageNum=1'">首页</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item" th:if="${pageInfo.hasPreviousPage}">-->
+<!--                                    <a class="page-link" th:href="'/PageSelectMaster?pageNum='+${pageInfo.prePage}">Previous</a>-->
+<!--                                </li>-->
+<!--                                 <li class="page-item" th:each="nav:${pageInfo.navigatepageNums}">-->
+<!--                                     <a class="page-link" th:href="'/PageSelectMaster?pageNum='+${nav}" th:text="${nav}"></a>-->
+<!--                                 </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link"  th:href="@{#}" >...</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item" th:if="${pageInfo.hasNextPage}">-->
+<!--                                    <a class="page-link" th:href="'/PageSelectMaster?pageNum='+${pageInfo.nextPage}">Next</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link"  th:href="'/PageSelectMaster?pageNum='+${pageInfo.pages}" t>尾页</a>-->
+<!--                                </li>-->
+
+<!--                            </ul>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div class="box2">
+                    <p >Designed by xia & ok</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:include="com/heart :: script">
+</script>
+<script>
+    var Phone_id;
+    function Del(obj){
+        var i=obj.title;
+        phone_id=i;
+    }
+    $(function () {
+        $("#Select").click(function () {
+            $.ajax({
+                url: "/SelectAllByName",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "name":$(".Master_name").val()
+                },
+                success: function (data) {
+                    var a=data["Masters"];
+                    var b=data["state"];
+                    console.log(a);
+                    if (b==1) {
+                        $(".box_li2_3").empty();
+                        X_html='';
+                        for(var i=0;i<a.length;i++){
+                            X_html=X_html+'<div class="card_box" >\n' +
+                                '                                <div style="width:40%;">\n' +
+                                '                                    <img src="https://static.runoob.com/images/mix/img_avatar.png"  style="width:100%;border-radius:8px 0 0 0 ;">\n' +
+                                '                                    <h5 >'+a[i].name+'</h5>\n' +
+                                '                                </div>\n' +
+                                '                                <div style="width:60%;padding-top:2px;padding-left: 10px;">\n' +
+                                '                                    <a href="javascript:void(0)" style="margin-left: 84%;" title="'+a[i].id+'" class="Del" onclick="Del(this)"><img src="/image/return.png" alt="" width="16px"></a>\n' +
+                                '                                    <i>Tel:</i> <input type="text" readonly="readonly" class="phone" value="'+a[i].phone+'" >\n' +
+                                '                                    <i>住址：</i><input type="text" readonly="readonly" class="location" value="'+a[i].location+'">\n' +
+                                '                                    <a href="javascript:void(0)" style="" class="Edit" title="'+a[i].id+'" onclick="Del(this)"><img src="/image/Bian.png"  alt="" width="18px"></a>\n' +
+                                '                                </div>\n' +
+                                '                            </div>';
+                        }
+                        $(".box_li2_3").append(X_html);
+                        $(".Edit").click(function () {
+                            console.log(phone_id);
+                            $(this).siblings("input").removeAttr("readonly");
+                            $(this).siblings("input").css({
+                                "border":"1px solid #dedede"
+                            });
+                            var index=$(".Edit").index(this);
+                            $('.phone:not(:eq('+index+"))").attr("readonly","readonly");
+                            $('.location:not(:eq('+index+"))").attr("readonly","readonly");
+                            $('.phone:not(:eq('+index+"))").css({
+                                "border":"none"
+                            });
+                            $('.location:not(:eq('+index+"))").css({
+                                "border":"none"
+                            });
+                            $(this).replaceWith('<a href="javascript:void(0)" style="" class="Edit1" ><img src="/image/gou.png"  alt="" width="20px"></a>');
+                            $(".Edit1").click(function () {
+                                var con=confirm("确定要更改信息吗？");
+                                if(con==true) {
+                                    $.ajax({
+                                        url: "/UpdateMasterById",
+                                        type: "post",
+                                        dataType: "text",
+                                        data: {
+                                            "id": phone_id,
+                                            "phone": $(".phone").eq(index).val(),
+                                            "location": $(".location").eq(index).val()
+                                        },
+                                        success: function (data) {
+                                            console.log(data);
+                                            if (data === "yes") {
+                                                console.log(1);
+                                                window.location.href = "/rootPhone";
+                                            }
+                                        }
+                                    });
+                                }
+                            })
+                        })
+                        $(".Del").click(function () {
+                            console.log(phone_id);
+                            var con=confirm("确定要删除此信息？");
+                            if(con==true) {
+                                $.ajax({
+                                    url: "/DellMasterById",
+                                    type: "post",
+                                    dataType: "text",
+                                    data: {"id": phone_id},
+                                    success: function (data) {
+                                        console.log(data);
+                                        if (data === "yes") {
+                                            console.log(1);
+                                            window.location.href = "/rootPhone";
+                                        }
+                                    }
+
+                                });
+                            }
+                        })
+                        $("#submit").click(function () {
+                            $.ajax({
+                                url: "/InsertMaster",
+                                type: "post",
+                                dataType: "text",
+                                data: {"name":$("#name").val(),"phone":$("#phone").val(),"location":$("#location").val()},
+                                success: function (data) {
+                                    console.log(data);
+                                    if (data === "yes") {
+                                        console.log(1);
+                                        alert("保存成功");
+                                        window.location.href = "/rootPhone";
+                                    }
+                                }
+
+                            });
+                        })
+                    }
+                    else if(a.length==0){
+                        $(".box_li2_3").empty();
+                        $(".box_li2_3").append('没有找到相关数据，请重新输入');
+
+                    }
+                }
+            });
+        })
+    })
+</script>
+<script>
+    var Phone_id;
+    function Del(obj){
+        var i=obj.title;
+        phone_id=i;
+    }
+    $(function () {
+        $(".Edit").click(function () {
+            console.log(phone_id);
+            $(this).siblings("input").removeAttr("readonly");
+            $(this).siblings("input").css({
+                "border":"1px solid #dedede"
+            });
+            var index=$(".Edit").index(this);
+             $('.phone:not(:eq('+index+"))").attr("readonly","readonly");
+            $('.location:not(:eq('+index+"))").attr("readonly","readonly");
+            $('.phone:not(:eq('+index+"))").css({
+                "border":"none"
+            });
+            $('.location:not(:eq('+index+"))").css({
+                "border":"none"
+            });
+            $(this).replaceWith('<a href="javascript:void(0)" style="" class="Edit1" ><img src="/image/gou.png"  alt="" width="20px"></a>');
+            $(".Edit1").click(function () {
+                var con=confirm("确定要更改信息吗？");
+                if(con==true) {
+                    $.ajax({
+                        url: "/UpdateMasterById",
+                        type: "post",
+                        dataType: "text",
+                        data: {
+                            "id": phone_id,
+                            "phone": $(".phone").eq(index).val(),
+                            "location": $(".location").eq(index).val()
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data === "yes") {
+                                console.log(1);
+                                window.location.href = "/rootPhone";
+                            }
+                        }
+                    });
+                }
+            })
+        })
+        $(".Del").click(function () {
+            console.log(phone_id);
+            var con=confirm("确定要删除此信息？");
+            if(con==true) {
+                $.ajax({
+                    url: "/DellMasterById",
+                    type: "post",
+                    dataType: "text",
+                    data: {"id": phone_id},
+                    success: function (data) {
+                        console.log(data);
+                        if (data === "yes") {
+                            console.log(1);
+                            window.location.href = "/rootPhone";
+                        }
+                    }
+
+                });
+            }
+        })
+        $("#submit").click(function () {
+                $.ajax({
+                    url: "/InsertMaster",
+                    type: "post",
+                    dataType: "text",
+                    data: {"name":$("#name").val(),"phone":$("#phone").val(),"location":$("#location").val()},
+                    success: function (data) {
+                        console.log(data);
+                        if (data === "yes") {
+                            console.log(1);
+                            alert("保存成功");
+                            window.location.href = "/rootPhone";
+                        }
+                    }
+
+                });
+        })
+    })
+
+</script>
+<script>
+    var HTSDK = window.HTSDK || {};
+    HTSDK.infor={
+        //拖拽
+        dragAndDrop:function(){
+            var _move=false;
+            //鼠标离控件左上角的相对位置
+            var _x,
+                _y;
+            $(".wTop").mousedown(function(e){
+                _move = true;
+                _x = e.pageX-parseInt($(".win").css("left"));
+                _y = e.pageY-parseInt($(".win").css("top"));
+            });
+            $(document).mousemove(function(e){
+                if(_move){
+                    var x = e.pageX-_x;//移动时鼠标位置计算控件左上角的绝对位置
+                    var y = e.pageY-_y;
+                    $(".win").css({top:y,left:x});//控件新位置
+                }
+            }).mouseup(function(){
+                _move = false;
+            });
+        },
+        //初始化拖拽div的位置
+        initPosition:function(){
+            //计算初始化位置
+            var itop = ($(document).height()-$(".win").height())/2;
+            var ileft = ($(document).width()-$(".win").width())/1.2;
+            //设置被拖拽div的位置
+            $(".win").css({top:itop,left:ileft});
+        },
+        //点击显示按钮
+        clickShowBtn:function(){
+            $(".eject").click(function (){
+                $(".win").show();
+            });
+            $(".btn_exit").click(function(){
+                $(".win").hide();
+            });
+        },
+        //入口
+        init:function(){
+            var _ts = this;
+            _ts.clickShowBtn();
+            _ts.initPosition();
+            _ts.dragAndDrop();
+        }
+    };
+    $(function(){
+        HTSDK.infor.init();
+    })
+</script>
+</body>
+</html>

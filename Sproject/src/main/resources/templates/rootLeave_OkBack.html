@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+    <!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+    <!--    <script th:src="@{/js/y.js}"></script>-->
+    <!--    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+    <!--    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/poppe.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap4.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:include="com/heart :: style">
+</style>
+<style>
+    .box{
+        width:97%;
+        height:88%;
+        margin: 10px 15px;
+        padding: 6px 20px;
+        border:2px solid #dedede;
+        border-radius: 10px;
+        color: #2aabd2;
+    }
+    .box2{
+        width:100%;
+        height:5%;
+        text-align: center;
+        border-top: 1px solid  #dedede;
+        margin-top: 17px;
+    }
+    .box_li2_1{
+        width:100%;
+        height:9%;
+        border-bottom:1px solid  #dedede ;
+    }
+    .box_li2_3{
+        width:100%;
+        height: 69%;
+        margin-top: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .table_1{
+        width:100%;
+        table-layout: fixed;
+        word-break: break-all;
+    }
+    .table_1 tr td, .table_1 tr th{
+        text-align: center;
+    }
+    .table_1 tr td{
+        border-bottom:1px solid  #dedede ;
+    }
+    .table_1 tr td:nth-child(4){
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+    }
+    .table_1 tr td:nth-child(5){
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+    }
+    .box_li2_2{
+        width:100%;
+        height:4%;
+        margin-top:1%;
+    }
+    .box_li2_2 ul{
+        margin-left: 38%;
+    }
+    .hide{
+        display: none;
+    }
+    .block_h{
+        display: none;
+    }
+    .leave_enter{
+        background:white;
+        width:20%;
+        height:50%;
+        z-index: 1;
+        display: none;
+        border: 1px solid blue;
+        position: fixed;
+        top:16%;
+        left:40%;
+    }
+    .btn_exit{
+        border: none;
+        outline: none;
+        width:20px;
+        height:20px;
+        background:url("/image/return.png") no-repeat ;
+        background-size: cover;
+        margin-left:90%;
+    }
+    .box_u1{
+        width:100%;
+        height: 8%;
+        background: #f5f5f5;
+    }
+</style>
+<body>
+<div class="win leave_enter">
+    <div class="box_u1 wTop">
+        <span ><button class="btn_exit"></button></span>
+    </div>
+    <h5 style="text-align: center;" >回复</h5>
+    <textarea  style="width: 96%;height: 70%;margin-top: 3px;margin-left:5px;" placeholder="请输入内容" class="Leave"></textarea>
+    <input type="button" style="margin-left: 40%"  class="submit btn btn-info btn-sm" value="发表">
+</div>
+<div class="container-fluid" >
+    <div class="content" >
+        <div class="row" >
+            <div class="col-6">
+                <ul >
+                    <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                    <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+                </ul>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <ul >
+                    <li ><img th:src="@{/image/help.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/set.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/icon_user.png}" alt="" width="32px" height="32px"></li>
+                    <li th:text="${name}"></li>
+                    <li style="margin-left:10%;"><a href="/"><img th:src="@{/image/exit.png}" alt="" width="28px" height="28px"></a></li>
+                    <li>退出</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content_1 center-block">
+        <div class="row">
+            <div class="col-2" >
+                <h5><b>寝室维修管理</b></h5>
+                <ul class="Dao">
+                    <li >
+                        <a th:href="@{#}"> 首页</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootApply}">寝室维修申请数据管理</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootPhone}">维修师傅通话蒲</a>
+                    </li>
+                    <li class="add_bg">
+                        <a th:href="@{#}">学生反馈管理</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootUpPass}">修改密码</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <div class="box_li2_1">
+                        <div class="form-check form-check-inline">
+                            <lable class="form-check-label">
+                                <select name="" id="Select_Back" class="form-control" >
+                                    <option value="0">反馈信息</option>
+                                    <option value="1" >未回复</option>
+                                    <option value="2" selected>已回复</option>
+                                </select>
+                            </lable>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <lable class="form-check-label">
+                                <a th:href="@{/rootLeaveReturn}"><button style="color:#2aabd2;" class="btn btn-link">我的回复</button></a>
+                            </lable>
+                        </div>
+                    </div>
+                    <button style="color:#2aabd2;" class="block btn btn-link">编辑</button>
+                    <button style="color:#2aabd2;" class="block_h btn btn-link">返回</button>
+                    <button style="color: red" class="block_h btn btn-link" id="Delete_some">删除</button>
+                    <div class="box_li2_3" >
+                        <table class="table_1">
+                            <tr>
+                                <th class="hide"><input type="checkbox"  class="AllCheck" ></th>
+                                <th>学号</th>
+                                <th>姓名</th>
+                                <th>反馈内容</th>
+                                <th>反馈时间</th>
+                                <th>回复状态</th>
+<!--                                <th>操作</th>-->
+                            </tr>
+                            <tr th:each="leave:${leaves}" >
+                                <td class="hide"><input type="checkbox" th:title="${leave.id}" class="SomeCheck" ></td>
+                                <td th:text="${leave.from_number}" ></td>
+                                <td th:text="${leave.from_id}" ></td>
+                                <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${leave.content}" th:text="${leave.content}"></a></td>
+                                <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${leave.time}" th:text="${leave.time}"></a></td>
+                                <td th:text="${leave.back}" ></td>
+<!--                                <td ><a th:href="@{javascript:void(0)}" ><button style="background: #51eb41;" class="kill_btn btn btn-success btn-sm"   th:value="${leave.id}" th:title="${leave.from_number}" th:name="${leave.from_id}" onclick="Right(this)">回复</button></a></td>-->
+                            </tr>
+                        </table>
+                        <div style="width:100%;height: 5px"></div>
+                        <span class="error" style="margin-left: 45%;"></span>
+
+                    </div>
+                    <div class="box_li2_2">
+                        <ul class="pagination pagination-sm">
+                            <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+                                <a class="page-link" th:href="'/rootLeave_OkBack/pageSelectAll?pageNum=1'">首页</a>
+                            </li>
+                            <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+                                <a class="page-link" th:href="'/rootLeave_OkBack/pageSelectAll?pageNum='+${pageInfo.prePage}">Previous</a>
+                            </li>
+                            <li class="page-item" th:each="nav:${pageInfo.navigatepageNums}">
+                                <a class="page-link" th:href="'/rootLeave_OkBack/pageSelectAll?pageNum='+${nav}" th:text="${nav}"></a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"  th:href="@{#}" >...</a>
+                            </li>
+                            <li class="page-item" th:if="${pageInfo.hasNextPage}">
+                                <a class="page-link" th:href="'/rootLeave_OkBack/pageSelectAll?pageNum='+${pageInfo.nextPage}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"  th:href="'/rootLeave_OkBack/pageSelectAll?pageNum='+${pageInfo.pages}" t>尾页</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="box2">
+                    <p >Designed by xia & ok</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:include="com/heart :: script">
+</script>
+<script>
+    $(function () {
+        $("#Select_Back").on('change',function () {
+            var selected=$("#Select_Back option:selected");
+            console.log(selected.val());
+            if(selected.val()==0){
+                window.location.href="/rootLeave";
+            }
+            else if(selected.val()==1){
+                window.location.href="/rootLeave_NoBack";
+            }
+            else if(selected.val()==2){
+                window.location.href="/rootLeave_OkBack";
+            }
+
+        })
+    })
+</script>
+<script>
+    var array=new Array();
+    console.log(array);
+    $(function () {
+        $("#Delete_some").click(function () {
+            console.log(array);
+            var i=confirm("您确定删除？");
+            if(i==true){
+                $.ajax({
+                    url: "/DeleteLeaveSomeById",
+                    type: "post",
+                    dataType: "json",
+                    traditional:true,
+                    data: {"array":array},
+                    success: function (data) {
+                        console.log(data);
+                        if(data["state"]==1){
+                            window.location.reload();
+                        }
+
+                    }
+                });
+            }
+
+
+        })
+        $(".AllCheck").click(function () {
+            console.log($(this).attr("checked"));
+            if($(this).attr("checked")==undefined) {
+                $("input[type='checkbox']").attr("checked", true);
+                for(var i=0;i<$(".SomeCheck").length;i++){
+                    var All=$(".SomeCheck").eq(i).prop("title");
+                    var o=$.inArray(All,array);
+                    if(o==-1){
+                        array.push(All);
+                    }
+                    console.log($(".SomeCheck").eq(i).prop("title"));
+                }
+            }
+            else {
+                $("input[type='checkbox']").attr("checked", false);
+            }
+        })
+        $(".SomeCheck").click(function () {
+            console.log($(this).attr("checked"));
+            if($(this).attr("checked")==undefined) {
+                $(this).attr("checked", true);
+                var check = $(this).prop("title");
+                var i=$.inArray(check,array);
+                if(i==-1){
+                    array.push(check);
+                }
+                else {
+                    $(this).attr("checked", false);
+                }
+                console.log(check);
+            }
+        })
+
+    })
+</script>
+<script>
+    var from_number;
+    var from_id;
+    var id;
+    function Right(obj){
+        from_number=obj.title;
+        from_id=obj.name;
+        id=obj.value;
+    }
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+        $(".block").click(function () {
+            $(".hide").show();
+            $(".block_h").show();
+            $(this).hide();
+        })
+        $(".block_h").eq(0).click(function () {
+            $(".block").show();
+            $(".block_h").hide();
+            $(".hide").hide();
+        })
+        $(".submit").click(function () {
+            console.log(from_number);
+            console.log(from_id);
+            console.log(id);
+            var myDate = new Date();
+            var year=myDate.getFullYear();
+            var month=myDate.getMonth()+1;
+            var date=myDate.getDate();
+            var h=myDate.getHours();
+            var m=myDate.getMinutes();
+            var s=myDate.getSeconds();
+            if(h<10){
+                h="0"+h;
+            }
+            if(m<10){
+                m="0"+m;
+            }
+            if(s<10){
+                s="0"+s;
+            }
+            var now=year+'-'+month+"-"+date+"-"+h+':'+m+":"+s;
+            $.ajax({
+                url:"/InsertLeave_table",
+                type:"post",
+                dataType:"text",
+                data:{
+                    from_number:$.cookie("number"),
+                    from_id:"管理员",
+                    to_number:from_number,
+                    to_id:from_id,
+                    content:$(".Leave").val(),
+                    time:now
+                },
+                success:function (data) {
+                    console.log(data);
+                    if(data==="yes"){
+                        $.ajax({
+                            url:"/UpDateLeaveByBack",
+                            type:"post",
+                            dataType:"text",
+                            data:{
+                                id:id
+                            },
+                            success:function (data) {
+                                console.log(data);
+                            }
+
+                        });
+                        window.location.reload();
+                    }
+
+                }
+
+            });
+        })
+    })
+</script>
+<script>
+    var HTSDK = window.HTSDK || {};
+    HTSDK.infor={
+        //拖拽
+        dragAndDrop:function(){
+            var _move=false;
+            //鼠标离控件左上角的相对位置
+            var _x,
+                _y;
+            $(".wTop").mousedown(function(e){
+                _move = true;
+                _x = e.pageX-parseInt($(".win").css("left"));
+                _y = e.pageY-parseInt($(".win").css("top"));
+            });
+            $(document).mousemove(function(e){
+                if(_move){
+                    var x = e.pageX-_x;//移动时鼠标位置计算控件左上角的绝对位置
+                    var y = e.pageY-_y;
+                    $(".win").css({top:y,left:x});//控件新位置
+                }
+            }).mouseup(function(){
+                _move = false;
+            });
+        },
+        //初始化拖拽div的位置
+        initPosition:function(){
+            //计算初始化位置
+            var itop = ($(document).height()-$(".win").height())/2;
+            var ileft = ($(document).width()-$(".win").width())/1.2;
+            //设置被拖拽div的位置
+            $(".win").css({top:itop,left:ileft});
+        },
+        //点击显示按钮
+        clickShowBtn:function(){
+            $(".kill_btn").click(function (){
+                $(".win").show();
+            });
+            $(".btn_exit").click(function(){
+                $(".win").hide();
+            });
+        },
+        //入口
+        init:function(){
+            var _ts = this;
+            _ts.clickShowBtn();
+            _ts.initPosition();
+            _ts.dragAndDrop();
+        }
+    };
+    $(function(){
+        HTSDK.infor.init();
+    })
+</script>
+</body>
+</html>

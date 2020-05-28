@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.mapper.LeaveMapper">
+    <insert id="InsertLeave_table" parameterType="com.crm.dao.Leave" >
+        insert into leave_table(from_number,from_id,to_number,to_id,content,time,state,back)values(#{from_number},#{from_id},#{to_number},#{to_id},#{content},#{time},1,"未回复")
+    </insert>
+    <select id="SelectByNumber" resultType="com.crm.dao.Leave">
+        select * from leave_table where to_number=#{number} and state=1 order by id desc
+    </select>
+    <select id="SelectByRootAll" resultType="com.crm.dao.Leave">
+        select * from leave_table where from_id="管理员" order by id desc
+    </select>
+    <select id="SelectByTo_id" resultType="com.crm.dao.Leave">
+       select * from leave_table where (to_id="管理员"  and state=1 and from_number=#{number}) or (trim(to_id)='' and state=1 and from_number=#{number}) or (to_id is null and state=1 and from_number=#{number})order by id desc
+    </select>
+    <update id="DeleteLeaveByMe" >
+       update leave_table set  state=0 where id=#{id}
+    </update>
+    <select id="SelectStudent_LeaveAll" resultType="com.crm.dao.Leave">
+        select * from leave_table where to_id="管理员" or trim(to_id)='' or to_id is null order by id desc
+    </select>
+    <delete id="DeleteSomeById" parameterType="java.lang.Integer">
+        delete  from leave_table where id in
+        <foreach collection="array" item="idItem" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </delete>
+    <update id="UpDateLeaveByBack" >
+       update leave_table set  back="已回复" where id=#{id}
+    </update>
+    <select id="SelectLeaveByBack" resultType="com.crm.dao.Leave">
+        select * from leave_table where (to_id="管理员" and back=#{back}) or (trim(to_id)='' and back=#{back}) or (to_id is null and back=#{back}) order by id desc
+    </select>
+    <delete id="DeleteLeaveByRoot">
+        delete from leave_table where id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.mapper.MaintainMapper">
+<!--    <resultMap id="BaseResultMap" type="com.crm.dao.Maintain">-->
+<!--        <id column="id"  jdbcType="INTEGER" />-->
+<!--        <result column="xi" property="xi" jdbcType="CHAR" />-->
+<!--        <result column="clas" property="clas" jdbcType="CHAR" />-->
+<!--        <result column="lnub" property="lnub" jdbcType="CHAR" />-->
+<!--        <result column="snub" property="snub" jdbcType="CHAR" />-->
+<!--        <result column="name" property="name" jdbcType="CHAR" />-->
+<!--        <result column="phone" property="phone" jdbcType="CHAR" />-->
+<!--        <result column="content" property="content" jdbcType="CHAR" />-->
+<!--    </resultMap>-->
+    <insert id="Insert" parameterType="com.crm.dao.Maintain">
+        insert into maintain_table(xi,clas,lnub,snub,name,phone,content,state,time,clean_id)values(#{xi},#{clas},#{lnub},#{snub},#{name},#{phone},#{content},"待审核",#{time},1)
+    </insert>
+    <select id="SelectByName" resultType="com.crm.dao.Maintain" >
+        select * from maintain_table where clas=#{clas} and state="待审核"
+    </select>
+    <select id="SelectByState" resultType="com.crm.dao.Maintain" >
+        select * from maintain_table where clas=#{clas} and state="已通过" ORDER BY id desc
+    </select>
+    <delete id="DeleteById">
+        delete  from maintain_table where id=#{id}
+    </delete>
+<select id="SelectByPage" resultType="com.crm.dao.Maintain" >
+        select * from maintain_table where clas=#{number} and state="已通过" ORDER BY id desc LIMIT #{id},#{idE}
+    </select>
+    <select id="SelectAll" resultType="com.crm.dao.Maintain">
+        select * from maintain_table where state=#{state} ORDER BY id desc
+    </select>
+    <select id="SelectAllLimit" resultType="com.crm.dao.Maintain">
+        select * from maintain_table where state="待审核"
+    </select>
+    <select id="SelectByPageAll" resultType="com.crm.dao.Maintain">
+         select * from maintain_table where state="待审核" ORDER BY id desc LIMIT #{id},#{idE}
+    </select>
+    <select id="SelectById_NoState" resultType="com.crm.dao.Maintain">
+         select * from maintain_table where state=#{state} and clas=#{clas} ORDER BY id desc
+    </select>
+    <select id="SelectMaintain_tableXiById" resultType="com.crm.dao.Maintain">
+         select * from maintain_table where state=#{state} and xi=#{xi} ORDER BY id desc
+    </select>
+    <select id="SelectMaintain_table_LById" resultType="com.crm.dao.Maintain">
+          select * from maintain_table where state=#{state} and lnub=#{lou_id} ORDER BY id desc
+    </select>
+    <select id="SelectById_rootApply" resultType="com.crm.dao.Maintain">
+            select * from maintain_table where id=#{id}
+    </select>
+    <select id="SelectStateByName"  resultType="java.lang.String">
+            select state from maintain_table where clas=#{clas}
+    </select>
+    <delete id="DeleteSomeById" parameterType="java.lang.Integer">
+         delete  from maintain_table where id in
+         <foreach collection="array" item="idItem" open="(" separator="," close=")">
+             #{idItem}
+         </foreach>
+    </delete>
+    <select id="SelectMaintainByLikeTime" resultType="com.crm.dao.Maintain">
+      select * from maintain_table where clas=#{number} and state="已通过" and time like concat('%',#{time},'%')
+  </select>
+    <update id="UpdateStateByReturn">
+        update maintain_table set state="已驳回" where id=#{id}
+    </update>
+</mapper>

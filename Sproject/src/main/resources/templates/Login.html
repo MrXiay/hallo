@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+</head>
+<style>
+    body,div,ul,li,input,img{
+        margin: 0;
+        padding:0;
+    }
+    body{
+        background:url("/image/build.jpg") no-repeat ;
+        background-size: cover;
+    }
+    .box{
+        height:454px;
+        width:844px;
+        margin:40px auto 0;
+    }
+    .box_1{
+        width:422px;
+        height:454px;
+        background:url("/image/Logo.png") no-repeat ;;
+        opacity: 0.95;
+        float: left;
+    }
+    .box_2{
+        width:314px;
+        height:298px;
+       background:white;
+        opacity: 0.9;
+        float: left;
+        padding: 78px 54px;
+    }
+    img{
+        width:30px;
+        height:30px;
+        margin-top: 10px;
+    }
+    .ul_box>li{
+        list-style: none;
+        margin-bottom: 30px;
+    }
+    .box_2_1{
+        width:288px;
+        height:50px;
+        border-radius: 4px;
+        border: 1px solid #dbdbdb;
+        padding: 0 6px;
+
+    }
+    .box_2_1 li{
+        line-height: 50px;
+        list-style: none;
+        float: left;
+    }
+    input[type="text"],input[type="password"]{
+        height:30px;
+        width:240px;
+        margin-left: 10px;
+        outline: none;
+        border: none;
+        background: none;
+        font-size: 16px;
+    }
+    input[type="button"]{
+        width:300px;
+        height:50px;
+        border-radius: 4px;
+        border: 1px solid #dbdbdb;
+        background: #0079fe;
+        color: white;
+        line-height: 50px;
+    }
+    input::-ms-input-placeholder{
+        color: #cccccc;
+    }
+    .shad{
+        box-shadow: #0079fe 0 0 4px;
+    }
+    a{
+        color: #2aabd2;
+    }
+</style>
+<body>
+<div class="box">
+    <div class="box_1"></div>
+    <div class="box_2">
+        <form id="form"  >
+            <ul class="ul_box">
+                <li style="color: #999999"><b>用户名登录/USER <a th:href="@{/register}">REGISTER</a></b></li>
+                <li>
+                    <div class="box_2_1" id="blu1">
+                        <ul>
+                            <li><img th:src="@{/image/icon_user.png}"></li>
+                            <li><input name="name" class="null" type="text"  placeholder="请输入用户学号或工号"></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="box_2_1" id="blu2">
+                        <ul>
+                            <li><img th:src="@{/image/icon_pass.png}"></li>
+                            <li><input name="ages" type="password" class="null1"  placeholder="请输入登录密码"></li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="text-align: center">
+                    <input  type="radio"  name="2" value="0" onclick="check_root(this)">管理员
+
+                    <input style="margin-left: 40px;" type="radio"  checked ="checked" name="2" value="1" onclick="check_root(this)">学生
+                </li>
+                <li>
+                    <input type="button" class="but" value="登录">
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+<script>
+    var check=1;
+    function check_root(obj){
+        check=obj.value;
+    }
+    $(function () {
+        $("input").eq(0).focus(function () {
+           $("#blu1").addClass("shad");
+        });
+        $("input").eq(0).blur(function () {
+            $("#blu1").removeClass("shad");
+
+        });
+        $("input").eq(1).focus(function () {
+            $("#blu2").addClass("shad");
+        });
+        $("input").eq(1).blur(function () {
+            $("#blu2").removeClass("shad");
+
+        });
+        $("body").keyup(function(event){
+            if(event.keyCode ==13){
+                $(".but").click();
+            }
+        });
+        $(".but").click(function () {
+            if($(".null").val()==""){
+                alert("用户名名不能为空");
+                $(".null").focus();
+            }
+            else if($(".null1").val()==""){
+                alert("密码不能为空");
+                $(".null1").focus();
+            }
+            else if(check==1){
+            $.ajax({
+                url:"/LoginGo",
+                type:"post",
+                dataType:"json",
+                data:{"number":$(".null").val(),"password":$(".null1").val()},
+                success:function (data) {
+                    console.log(data);
+                    var a=data["state"];
+                    var b=data["name"];
+                    console.log(a);
+                    console.log(b);
+                    if(a==="null") {
+                        alert("当前学号还未注册");
+                    }
+                    else {
+                        if (a === "yes") {
+                            console.log("登录成功");
+                            $.cookie("number", $(".null").val());
+                            $.cookie("name", b);
+                            window.location.href = "/Home";
+                        } else {
+                            alert("用户名或密码错误");
+                            $(".null1").val("")
+                            $(".null1").focus();
+                        }
+                    }
+                }
+
+            });
+            }
+            else{
+                $.ajax({
+                    url:"/RootLoginGo",
+                    type:"post",
+                    dataType:"json",
+                    data:{"number":$(".null").val(),"password":$(".null1").val()},
+                    success:function (data) {
+                        console.log(data);
+                        var a=data["state"];
+                        var b=data["name"];
+                        console.log(a);
+                        console.log(b);
+                        if(a==="yes"){
+                            console.log("登录成功");
+                            $.cookie("number",$(".null").val());
+                            $.cookie("name",b);
+                            window.location.href="/rootHome";
+                        }
+                        else{
+                            alert("用户名或密码错误");
+                            $(".null1").val("")
+                            $(".null1").focus();
+                        }
+                    }
+
+                });
+            }
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    <script th:src="@{/js/y.js}"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js}"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/poppe.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap4.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:include="com/heart :: style">
+</style>
+<style>
+    .box{
+        width:97%;
+        height:88%;
+        margin: 10px 15px;
+        padding: 10px 20px;
+        border:2px solid #dedede;
+        border-radius: 10px;
+    }
+    .box2{
+        width:100%;
+        height:5%;
+        text-align: center;
+        border-top: 1px solid  #dedede;
+        margin-top: 17px;
+    }
+    .cli li{
+        list-style: none;
+        width:125px;
+        float: left;
+        padding: 4px 10px;
+
+    }
+    .tab li{
+        list-style: none;
+        display: none;
+        width:100%;
+        height:100%;
+        padding: 5px 10px;
+
+    }
+    .tab .show{
+        display: block;
+    }
+    .cli{
+        width:100%;
+        height:40px;
+        border: 1px solid #dedede;
+        zoom: 1;
+    }
+    .cli:after{
+        clear:both;
+    }
+    .tab{
+        width:100%;
+        height:90%;
+        border: 1px solid #dedede;
+        position: relative;
+    }
+    .box_li2_1{
+        widht:100%;
+        height:26px;
+        padding: 1px 5px;
+        border: 1px solid #dedede;
+        border-radius: 5px;
+    }
+    .box_li2_1 span{
+        color: red;
+    }
+    .box_li2_2{
+        margin-top: 20px;
+    }
+    .box_li2_2 span{
+        color: red;
+
+    }
+    .box_li2_2 table{
+        border-collapse: separate;
+        border-spacing:70px 0px;
+    }
+    .box_li2_2 table input{
+        width:50%;
+        height:10%;
+    }
+
+    .table_1{
+        width:100%;
+        table-layout: fixed;
+    }
+    .table_1,.table_1 td{
+        border: 1px solid #dedede;
+        text-align: center;
+    }
+    .table_1 tr td:last-child{
+        background: yellow;
+        overflow: hidden;
+    }
+    .box_li3{
+        width:26%;
+        height:14%;
+        margin-top:3%;
+        border-bottom: 4px solid #9a9a9a;
+        /*border-bottom: 4px solid #2b98fd;*/
+        float: left;
+    }
+    .box_li3:first-child{
+        margin-left: 10%;
+    }
+    .box_li3 p{
+        margin-left: 40%;
+        color:#9a9a9a;
+    }
+    .box_li3_1{
+        width:30px;
+        height:30px;
+        border-radius: 50%;
+        background: #9a9a9a;
+        margin-left: 45%;
+        line-height: 30px;
+        text-align: center;
+        color: white;
+    }
+    .message{
+        margin-left: 40%;
+    }
+    .no_success{
+        width:40px;
+        height:40px;
+        border-radius: 50%;
+        display: none;
+        background:url("/image/Cha.png") no-repeat ;
+        background-size: cover;
+        position: absolute;
+        top:16%;
+        left: 60%;
+    }
+</style>
+<body>
+<div class="container-fluid" >
+    <div class="content" >
+        <div class="row" >
+            <div class="col-6">
+                <ul >
+                    <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                    <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+                </ul>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <ul >
+                    <li ><img th:src="@{/image/help.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/set.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/icon_user.png}" alt="" width="32px" height="32px"></li>
+                    <li th:text="${name}"></li>
+                    <li style="margin-left:10%;"><a href="/"><img th:src="@{/image/exit.png}" alt="" width="28px" height="28px"></a></li>
+                    <li>退出</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content_1 center-block">
+        <div class="row">
+            <div class="col-2" >
+                <h5><b>寝室维修管理</b></h5>
+                <ul class="Dao">
+                    <li >
+                        <a th:href="@{/Home}"> 首页</a>
+                    </li>
+                    <li  style="background: none">
+                        <a th:href="@{#}" >寝室报修申请</a>
+                        <ul class="Dao1">
+                            <li > <a th:href="@{/Apply}" >申报查询</a></li>
+                            <li > <a th:href="@{/apply/apply_1}" >维修申请</a></li>
+                            <li class="add_bg"> <a th:href="@{#}" >维修进度</a></li>
+                            <li><a th:href="@{/apply/apply_3}" >问题反馈</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a th:href="@{/History}" >寝室维修历史</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/UpPass}">修改密码</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <ul class="cli">
+                        <li ><a th:href="@{/Apply}"><button class="btn btn-secondary btn-sm">申报查询</button></a></li>
+                        <li><a th:href="@{/apply/apply_1}"><button class="btn btn-secondary btn-sm">维修申请</button></a></li>
+                        <li><a th:href="@{#}"><button class="btn btn-secondary btn-sm">维修进度</button></a></li>
+                        <li><a th:href="@{/apply/apply_3}"><button class="btn btn-secondary btn-sm">问题反馈</button></a></li>
+                    </ul>
+                       <div class="tab">
+                            <div class="box_li3">
+                                <p>申请表填写</p>
+                                <div class="box_li3_1">
+                                    1
+                                </div>
+                            </div>
+                            <div class="box_li3">
+                                <p>待审核</p>
+                                <div class="box_li3_1">
+                                    2
+                                </div>
+                            </div>
+                            <div class="box_li3">
+                                <p>审核结果</p>
+                                <div class="box_li3_1">
+                                    3
+                                </div>
+                            </div>
+                           <div style="clear: both"></div>
+                           <div class="no_success">
+                           </div>
+                           <div style="margin-top: 15%;margin-left: 30%;color: red">
+                               <p class="show_no_success"></p>
+                           </div>
+
+                       </div>
+                </div>
+                <div class="box2">
+                    <p >Designed by xia & ok</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:include="com/heart :: script">
+</script>
+<script>
+    $(function () {
+        $(".Dao>li:nth-child(2)").click(function () {
+            $(".Dao1").toggle();
+        })
+        var session=$.cookie("name");
+        var session1=$.cookie("number");
+        $(".cookie").text(session);
+        console.log(session);
+        $.ajax({
+            url: "/SelectStateByName",
+            type: "get",
+            dataType: "json",
+            data:{"clas":session1},
+            success: function (data) {
+                var aa=data["state"];
+                var length=aa.length;
+                console.log(length);
+                console.log(aa);
+                var y=$.inArray("待审核", aa);
+                var x=$.inArray("已驳回",aa);
+                var z=$.inArray("已通过",aa);
+                console.log(y);
+                if(x>0){
+                    $("#form input[type='reset']").attr('disabled', "true");
+                    $("#form input[type='button']").removeClass("btn-primary");
+                    $("#form input[type='button']").addClass("btn-secondary");
+                    $("#form input[type='button']").attr('disabled', "true");
+                    for (var i = 0; i < 2; i++) {
+                        $(".box_li3").eq(i).css({
+                            "color": "#2b98fd",
+                            "border-bottom": "4px solid #2b98fd"
+                        });
+                        $(".box_li3 p").eq(i).css({
+                            "color": "#2b98fd"
+                        });
+                        $(".box_li3_1").eq(i).css({
+                            "background": "#2b98fd"
+                        });
+                    }
+                    $(".no_success").show();
+                    $(".show_no_success").text("你的申请未通过审核，请重新提交申请");
+                }
+                if(z>0) {
+                    $("#form input[type='reset']").removeAttr("disabled");
+                    $("#form input[type='button']").removeClass("btn-secondary");
+                    $("#form input[type='button']").addClass("btn-primary");
+                    $("#form input[type='button']").removeAttr("disabled");
+                    for(var i=0;i<3;i++) {
+                        $(".box_li3").eq(i).css({
+                            "color": "#2b98fd",
+                            "border-bottom": "4px solid #2b98fd"
+                        });
+                        $(".box_li3 p").eq(i).css({
+                            "color": "#2b98fd"
+                        });
+                        $(".box_li3_1").eq(i).css({
+                            "background": "#2b98fd"
+                        });
+                    }
+                    $(".no_success").hide();
+                }
+                if(y>=0) {
+                    $("#form input[type='reset']").attr('disabled', "true");
+                    $("#form input[type='button']").removeClass("btn-primary");
+                    $("#form input[type='button']").addClass("btn-secondary");
+                    $("#form input[type='button']").attr('disabled', "true");
+                    for (var i = 0; i < 2; i++) {
+                        $(".box_li3").eq(i).css({
+                            "color": "#2b98fd",
+                            "border-bottom": "4px solid #2b98fd"
+                        });
+                        $(".box_li3 p").eq(i).css({
+                            "color": "#2b98fd"
+                        });
+                        $(".box_li3_1").eq(i).css({
+                            "background": "#2b98fd"
+                        });
+                    }
+                // else if(y>0&&x>0){
+                //     $("#form input[type='reset']").attr('disabled', "true");
+                //     $("#form input[type='button']").removeClass("btn-primary");
+                //     $("#form input[type='button']").addClass("btn-secondary");
+                //     $("#form input[type='button']").attr('disabled', "true");
+                //     for (var i = 0; i < 2; i++) {
+                //         $(".box_li3").eq(i).css({
+                //             "color": "#2b98fd",
+                //             "border-bottom": "4px solid #2b98fd"
+                //         });
+                //         $(".box_li3 p").eq(i).css({
+                //             "color": "#2b98fd"
+                //         });
+                //         $(".box_li3_1").eq(i).css({
+                //             "background": "#2b98fd"
+                //         });
+                //     }
+                //     $(".no_success").show();
+                // }
+                // else{
+                //     $("#form input[type='reset']").removeAttr("disabled");
+                //     $("#form input[type='button']").removeClass("btn-secondary");
+                //     $("#form input[type='button']").addClass("btn-primary");
+                //     $("#form input[type='button']").removeAttr("disabled");
+                //     for(var i=0;i<3;i++) {
+                //         $(".box_li3").eq(i).css({
+                //             "color": "#2b98fd",
+                //             "border-bottom": "4px solid #2b98fd"
+                //         });
+                //         $(".box_li3 p").eq(i).css({
+                //             "color": "#2b98fd"
+                //         });
+                //         $(".box_li3_1").eq(i).css({
+                //             "background": "#2b98fd"
+                //         });
+                //     }
+                }
+
+            }
+
+        });
+    })
+</script>
+</body>
+</html>

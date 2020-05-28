@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:fragment="style">
+    body,div,ul,li,a,h5,img,p{
+        margin: 0;
+        padding: 0;
+
+    }
+    .content .row{
+        background: #ffffff;
+        height:52px;
+        box-shadow:#f6f6f6 0 3px 5px;
+
+    }
+    .content .row>div{
+        padding:0;
+    }
+    .content .row li{
+        float: left;
+        list-style: none;
+        margin-left:10px;
+    }
+    .content .row>.col-6>ul>li{
+
+        color:black;
+    }
+    .content .row>.col-4>ul>li{
+        line-height: 52px;
+    }
+    .content_1 .row>.col-2 h5{
+        width:100%;
+        height:52px;
+        text-align: center;
+        line-height: 52px;
+        border-bottom: 1px solid #dedede;
+        font-family: 宋体;
+        font-size: 16px;
+
+    }
+    .content_1 .row>.col-2{
+        background:#f5f5f5;
+        border-right: 1px solid #dedede;
+    }
+    .content_1 .row>div{
+        padding: 0;
+    }
+    .content_1 .row>.col-2 .Dao>li{
+        list-style: none;
+        text-indent: 20px;
+        line-height: 40px;
+        font-family: 宋体;
+
+    }
+    .Dao1>li{
+        list-style: none;
+        text-indent:40px;
+        line-height: 40px;
+        font-family: 宋体;
+    }
+    a:active{
+        color: blue;
+    }
+    a:hover{
+        color: blue;
+    }
+    a:link{
+        color: blue;
+    }
+    a:visited{
+        color: blue;
+    }
+    a:active,a:hover,a:link,a:visited{
+        color:black;
+        text-decoration: none;
+    }
+    .add_bg{
+        background: #dedede;
+    }
+</style>
+<body>
+<div class="container-fluid" >
+    <div class="content" >
+        <div class="row" th:fragment="head">
+            <div class="col-6">
+                <ul >
+                    <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                    <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+                </ul>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3">
+                <ul >
+                    <li ><img th:src="@{/image/icon_pass.png}" alt="" width="32px" height="32px"></li>
+                    <li >dfd</li>
+                    <li >sd</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content_1 center-block">
+        <div class="row">
+            <div class="col-2 " th:fragment="left">
+                <h5><b>寝室维修管理</b></h5>
+                <ul class="Dao">
+                    <li class="add_bg">
+                        <a th:href="@{#}"> 首页</a>
+                    </li>
+                    <li >
+                        <a th:href="@{#}" >寝室报修申请</a>
+                        <ul class="Dao_1">
+                            <li>申报查询</li>
+                            <li>维修申请</li>
+                            <li>维修进度</li>
+                            <li>问题反馈</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a th:href="@{#}" >寝室维修历史</a>
+                    </li>
+                    <li >
+                        <a th:href="@{#}" >寝室维修历史</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                df
+            </div>
+        </div>
+    </div>
+</div>
+<script th:fragment="script">
+    $(window).resize(function () {
+        var $height=$(window).height()-52+"px";
+        var $height1=$(window).height()-52+"px";
+        $(".content_1 .row").height($height);
+        $('.content_1 .col-2').height($height);
+        $('.content_1 .col-10').height($height1);
+    })
+    $(function(){
+        yu();
+        var $height=$(window).height()-52+"px";
+        var $height1=$(window).height()-52+"px";
+        $(".content_1 .row").height($height);
+        $('.content_1 .col-2').height($height);
+        $('.content_1 .col-10').height($height1);
+
+    })
+    function yu(){
+        $(".Dao>li").click(function() {
+            $(this).addClass("add_bg");
+            $(this).siblings().removeClass("add_bg");
+        });
+    }
+</script>
+</body>
+</html>

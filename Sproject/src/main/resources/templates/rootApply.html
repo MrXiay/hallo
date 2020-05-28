@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5">
+    <title>寝室维修管理系统</title>
+<!--    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    <script th:src="@{/js/y.js}"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+<!--    <script th:src="@{https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap4.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{/js/y.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/poppe.js}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap4.js}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style th:include="com/heart :: style">
+</style>
+<style>
+    .box{
+        width:97%;
+        height:88%;
+        margin: 10px 15px;
+        padding: 10px 20px;
+        border:2px solid #dedede;
+        border-radius: 10px;
+    }
+    .box2{
+        width:100%;
+        height:5%;
+        text-align: center;
+        border-top: 1px solid  #dedede;
+        margin-top: 17px;
+    }
+    .box1{
+        width:100%;
+        height:100%;
+        border:1px solid #dedede;
+        padding: 5px 8px;
+    }
+    .box_li2_1{
+        width:100%;
+        height:38px;
+        padding: 3px 10px;
+        border-bottom: 1px solid #dedede;
+        color: #3e8f3e;
+        margin-bottom: 6px;
+    }
+    .box1 th{
+        width: 12%;
+        text-align: center;
+    }
+    .box1 td{
+        text-align: center;
+    }
+    .box1 button{
+        color: white;
+        border: none;
+    }
+    .table_1,.table_1 td{
+        border: 1px solid #dedede;
+    }
+    .table_1{
+        width:100%;
+        table-layout: fixed;
+    }
+    .table_1 tr td{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .table_1 tr td:nth-child(9){
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+    }
+    .table_1 tr td:nth-child(10){
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+    }
+    .box_li2_2{
+        width:100%;
+        height:5%;
+        margin-top:2%;
+    }
+    .box_li2_2 ul{
+        margin-left: 38%;
+    }
+    .box_li2_3{
+        margin-top:1%;
+        width:100%;
+        height: 69%;
+       overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .box_u{
+       width:60%;
+        height:67%;
+        z-index: 1;
+        border: 1px solid blue;
+        display: none;
+        background: white;
+        border-radius: 8px;
+        position: fixed;
+        top:20%;
+        left: 26%;
+    }
+    .box_u table input{
+        width:50%;
+        height:10%;
+
+    }
+    box_u form,box_u table{
+        width:100%;
+        height:100%;
+    }
+    .box_u table{
+        border-collapse: separate;
+        border-spacing: 56px 16px;
+    }
+    .box_u td{
+        width:300px;
+    }
+    .box_u table textarea{
+        width:70%;
+        height:50%;
+    }
+    .box_u1{
+        width:100%;
+        height: 6%;
+        background: #f5f5f5;
+    }
+    .box_u form span{
+        color:red;
+    }
+    .btn_exit{
+        border: none;
+        outline: none;
+        width:20px;
+        height:20px;
+        background:url("/image/return.png") no-repeat ;
+        background-size: cover;
+        margin-left:97%;
+    }
+</style>
+<body>
+<div class="box_u win">
+    <div class="box_u1 wTop">
+        <span ><button class="btn_exit"></button></span>
+    </div>
+    <span ><h4 style="margin-left:38%;">寝室维修申请单</h4></span>
+    <form action="" id="Form">
+        <table>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>*</span>系别:
+                    &nbsp;&nbsp;<input type="text" class="xi" title="系别"></td>
+                <td>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>*</span>学号:
+                    &nbsp;&nbsp;<input type="text"  class="clas" title="学号"><span class="error"></span></td>
+            </tr>
+            <tr>
+                <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>*</span>楼号:
+                    &nbsp;&nbsp;<input type="text"   class="lnub" title="楼号"></td>
+                <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>*</span>宿舍号:
+                    &nbsp;&nbsp;<input type="text"   class="snub" title="宿舍号"></td>
+            </tr>
+            <tr>
+                <td> <span>*</span>申请人姓名: &nbsp;&nbsp;<input type="text"  class="name" title="申请人姓名"></td>
+                <td>  <span>*</span>申请人电话: &nbsp;&nbsp;<input type="text"  class="phone" title="申请人电话"></td>
+            </tr>
+            <tr>
+                <td colspan="2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>*</span>损坏概况:<br>
+                    <textarea   style="margin-left: 16%" class="content_3" placeholder="请简述损坏情况"></textarea></td>
+            </tr>
+            <tr>
+                <td align="center">  <input type="button" class="sub  btn btn-primary" id="sub" value="提交" ></td>
+                <td align="center"> <input type="reset" class="btn btn-secondary" value="重置"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="container-fluid" >
+    <div class="content" >
+        <div class="row" >
+            <div class="col-6">
+                <ul >
+                    <li  style="margin-left:0;"><img th:src="@{/image/Cai.png}" alt="" width="52px" height="52px" ></li>
+                    <li ><img th:src="@{/image/Lo.png}" alt=""></li>
+                </ul>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <ul >
+                    <li ><img th:src="@{/image/help.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/set.png}" alt="" width="23px" height="23px"></li>
+                    <li ><img th:src="@{/image/icon_user.png}" alt="" width="32px" height="32px"></li>
+                    <li th:text="${name}"></li>
+                    <li style="margin-left:10%;"><a href="/"><img th:src="@{/image/exit.png}" alt="" width="28px" height="28px"></a></li>
+                    <li>退出</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content_1 center-block">
+        <div class="row">
+            <div class="col-2" >
+                <h5><b>寝室维修管理</b></h5>
+                <ul class="Dao">
+                    <li >
+                        <a th:href="@{/rootHome}"> 首页</a>
+                    </li>
+                    <li  class="add_bg">
+                        <a th:href="@{#}">寝室维修申请数据管理</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootPhone}">维修师傅通话蒲</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootLeave}">学生反馈管理</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/rootUpPass}">修改密码</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <div class="box1">
+                        <div class="box_li2_1">
+                            <a th:href="@{/rootApply}"><button  class="btn btn-secondary btn-sm">待审核</button></a>
+                            <a th:href="@{/rootApply_Success}"><button  class="btn btn-secondary btn-sm">已通过</button></a>
+                            <a th:href="@{/rootApply_Return}"><button  class="btn btn-secondary btn-sm">已驳回</button></a>
+                        </div>
+                        <span >
+                            <form action="" method="get">
+                            &nbsp;&nbsp;学号&nbsp;&nbsp;
+                            <input type="text" class="text" style="outline: none;border-left: none;border-top: none;border-right: none" placeholder="输入学号">
+                                &nbsp;&nbsp;系别&nbsp;&nbsp;
+                            <input type="text" class="text1" style="outline: none;border-left: none;border-top: none;border-right: none" placeholder="请输入系别">
+                            &nbsp;&nbsp;
+                            &nbsp;&nbsp;楼号&nbsp;&nbsp;
+                            <input type="text" class="text2" style="outline: none;border-left: none;border-top: none;border-right: none" placeholder="请输入楼号">
+                            &nbsp;&nbsp;
+                            &nbsp;&nbsp;
+                            <input type="button" id="submit" class="btn btn-info btn-sm" value="查询">
+                                 <input type="button"  class="btn btn-info btn-sm" value="新增" id="new">
+                                  <input type="button"  class="btn btn-danger btn-sm" value="删除" id="Delete_some">
+                                <a th:href="@{/rootApply}"> <button type="button" class="btn btn-secondary btn-sm">刷新</button></a>
+                                <a th:href="@{/rootApply}"> <button type="button" class="btn btn-secondary btn-sm">返回主页面</button></a>
+                            </form>
+
+                        </span>
+                        <div class="box_li2_3" >
+                            <table class="table_1">
+                                <tr>
+                                    <th><input type="checkbox"  class="AllCheck" ></th>
+                                    <th>序号</th>
+                                    <th>系别</th>
+                                    <th>楼号</th>
+                                    <th>宿舍号</th>
+                                    <th>姓名</th>
+                                    <th>学号</th>
+                                    <th>电话</th>
+                                    <th>损坏情况</th>
+                                    <th>申请时间</th>
+                                    <th>审核状态</th>
+                                    <th colspan="2">操作</th>
+                                </tr>
+                                <tr th:each="maintain,state : ${maintains}" >
+                                    <td><input type="checkbox" th:title="${maintain.id}" class="SomeCheck" ></td>
+                                    <td th:text="${state.count}"></td>
+                                    <td ><a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.xi}" th:text="${maintain.xi}"></a></td>
+                                    <td ><a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.lnub}" th:text="${maintain.lnub}"></a></td>
+                                    <td ><a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.snub}" th:text="${maintain.snub}"></a></td>
+                                    <td ><a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.name}" th:text="${maintain.name}"></a></td>
+                                    <td ><a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.clas}" th:text="${maintain.clas}"></a></td>
+                                    <td ><a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.phone}" th:text="${maintain.phone}"></a></td>
+                                    <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.content}" th:text="${maintain.content}"></a></td>
+                                    <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.time}" th:text="${maintain.time}"></a></td>
+                                    <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" th:data-content="${maintain.state}" th:text="${maintain.state}"></a></td>
+                                    <td ><button  class="kill_btn btn btn-success btn-sm" th:title="${maintain.id}" onclick="Right(this)">审核</button></td>
+                                    <td ><a th:href="@{/UpdateStateByReturn(id=${maintain.id})}" onclick="return(confirm('你是否确定驳回？'))"><button class="btn btn-danger btn-sm">驳回</button></a></td>
+                                </tr>
+                            </table>
+                            <div style="width:100%;height: 5px"></div>
+                            <span class="error" style="margin-left: 45%;"></span>
+                        </div>
+                        <div class="box_li2_2">
+                            <ul class="pagination pagination-sm">
+                                <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+                                    <a class="page-link" th:href="'/rootApply/PageSelectAll?pageNum=1'">首页</a>
+                                </li>
+                                <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+                                    <a class="page-link" th:href="'/rootApply/PageSelectAll?pageNum='+${pageInfo.prePage}">Previous</a>
+                                </li>
+                                <li class="page-item" th:each="nav:${pageInfo.navigatepageNums}">
+                                    <a class="page-link" th:href="'/rootApply/PageSelectAll?pageNum='+${nav}" th:text="${nav}"></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link"  th:href="@{#}" >...</a>
+                                </li>
+                                <li class="page-item" th:if="${pageInfo.hasNextPage}">
+                                    <a class="page-link" th:href="'/rootApply/PageSelectAll?pageNum='+${pageInfo.nextPage}">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link"  th:href="'/rootApply/PageSelectAll?pageNum='+${pageInfo.pages}" t>尾页</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box2">
+                    <p >Designed by xia & ok</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:include="com/heart :: script">
+</script>
+<script>
+    var array=new Array();
+    console.log(array);
+    $(function () {
+        $("#Delete_some").click(function () {
+            console.log(array);
+            var i=confirm("您确定删除？");
+            if(i==true){
+                $.ajax({
+                    url: "/DeleteSomeById",
+                    type: "post",
+                    dataType: "json",
+                    traditional:true,
+                    data: {"array":array},
+                    success: function (data) {
+                        console.log(data);
+                        if(data["state"]==1){
+                            window.location.reload();
+                        }
+
+                    }
+                });
+            }
+
+
+        })
+        $(".AllCheck").click(function () {
+            console.log($(this).attr("checked"));
+            if($(this).attr("checked")==undefined) {
+                $("input[type='checkbox']").attr("checked", true);
+                for(var i=0;i<$(".SomeCheck").length;i++){
+                    var All=$(".SomeCheck").eq(i).prop("title");
+                    var o=$.inArray(All,array);
+                    if(o==-1){
+                        array.push(All);
+                    }
+                    console.log($(".SomeCheck").eq(i).prop("title"));
+                }
+            }
+            else {
+                $("input[type='checkbox']").attr("checked", false);
+            }
+        })
+        $(".SomeCheck").click(function () {
+            console.log($(this).attr("checked"));
+            if($(this).attr("checked")==undefined) {
+                $(this).attr("checked", true);
+                var check = $(this).prop("title");
+                var i=$.inArray(check,array);
+                if(i==-1){
+                    array.push(check);
+                }
+                else {
+                    $(this).attr("checked", false);
+                }
+                console.log(check);
+            }
+        })
+
+    })
+</script>
+<script>
+    var main_id="";
+   function Right(obj){
+       var y=obj.title;
+       main_id=y;
+   }
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+        var va=$(".table_1 tr td:nth-child(2)").text();
+        if(va==0){
+            $(".error").text("没有可查询数据");
+        }
+        $(".kill_btn").click(function () {
+            $(".box_u").toggle();
+            $("#Form input[type='reset']").attr('disabled',"true");
+            $("#sub").replaceWith('<input type=\"button" class="btn btn-primary" id="sub1" value="提交" >');
+            $.ajax({
+                url:"/SelectById_rootApply",
+                type:"get",
+                dataType:"json",
+                data:{"id":main_id},
+                success:function (data) {
+                    var aa = data["maintain"];
+                    var bb = data["state"];
+                        console.log(aa);
+                        console.log(aa.id);
+                        console.log(bb);
+                    if(bb==1){
+                               $(".xi").val(aa.xi);
+                        $(".clas").val(aa.clas);
+                        $(".lnub").val(aa.lnub);
+                        $(".snub").val(aa.snub);
+                        $(".name").val(aa.name);
+                        $(".phone").val(aa.phone);
+                        $(".content_3").val(aa.content);
+                    }
+
+                }
+            });
+            $("#sub1").click(function () {
+                for (var i=0;i<6;i++){
+                    if($(".box_u input").eq(i).val()==""){
+                        alert($(".box_u input").eq(i).attr("title")+"::"+"不能为空");
+                    }
+                }
+                if($(".content_3").val()==""){
+                    alert("损坏情况::不能为空");
+
+                }
+                else if($(".xi").val()!=""&&$(".clas").val()!=""&&$(".lnub").val()!=""&&$(".snub").val()!=""&&
+                    $(".name").val()!=""&&$(".phone").val()!=""&&$(".content_3").val()!=""){
+                    var i=confirm("确认提交？");
+                    if(i==true) {
+                        $.ajax({
+                            url: "/UpDateById",
+                            type: "get",
+                            dataType: "text",
+                            data: {
+                                "id": main_id,
+                                "xi": $(".xi").val(),
+                                "clas": $(".clas").val(),
+                                "lnub": $(".lnub").val(),
+                                "snub": $(".snub").val(),
+                                "name": $(".name").val(),
+                                "phone": $(".phone").val(),
+                                "content": $(".content_3").val()
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                if (data === "yes_1") {
+                                    console.log("提交成功");
+                                    $("#Form input[type='reset']").click();
+                                    $(".box_u").hide();
+                                    window.location.href = "/rootApply";
+                                    alert("提交成功");
+                                }
+                            }
+
+                        });
+                    }
+
+                }
+
+            });
+
+        })
+        $(".btn_exit").click(function () {
+            var i=confirm("信息未保存，是否关闭窗口");
+            if(i==true) {
+                $("#Form input[type='reset']").removeAttr("disabled");
+                $("#Form input[type='reset']").click();
+                $(".box_u").hide();
+            }
+            else { $("#Form input[type='reset']").removeAttr("disabled");
+                console.log("1");
+            }
+        })
+        $("#new").click(function () {
+            $(".box_u").toggle();
+
+        })
+        $("#submit").click(function () {
+            var text=$(".text").val();
+            var text1=$(".text1").val();
+            var text2=$(".text2").val();
+            if($(".text").val()==""&&$(".text1").val()==""&&$(".text2").val()==""){
+                alert("请输入查询条件");
+            }
+                if($(".text").val()!="") {
+                    $(".box_li2_3").empty();
+                    $.ajax({
+                        url: "/SelectById_NoState",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            "clas": $(".text").val(),
+                            "state":"待审核"
+                        },
+                        success: function (data) {
+                            var aa = data["maintain"];
+                            var bb = data["state"];
+                            // console.log(aa[0].id);
+                            console.log(bb);
+                                var html='<table class="table_1">\n' +
+                                    '                                <tr>\n' +
+                                    '                                    <th><input type="checkbox"  class="AllCheck" ></th>\n' +
+                                    '                                    <th>序号</th>\n' +
+                                    '                                    <th>系别</th>\n' +
+                                    '                                    <th>楼号</th>\n' +
+                                    '                                    <th>宿舍号</th>\n' +
+                                    '                                    <th>姓名</th>\n' +
+                                    '                                    <th>学号</th>\n' +
+                                    '                                    <th>电话</th>\n' +
+                                    '                                    <th>损坏情况</th>\n' +
+                                    '                                    <th>审核状态</th>\n' +
+                                    '                                    <th colspan="2">操作</th>\n' +
+                                    '                                </tr>';
+                                var html_1='';
+                                if (bb == 1) {
+                                    for(var i=0;i<aa.length;i++){
+                                        html_1=html_1+'<tr  >\n' +
+                                            '                                    <td><input type="checkbox" title="'+aa[i].id+'" class="SomeCheck" ></td>\n' +
+                                            '                                    <td >'+(i+1)+'</td>\n' +
+                                            '                                    <td >'+aa[i].xi+'</td>\n' +
+                                            '                                    <td >'+aa[i].lnub+'</td>\n' +
+                                            '                                    <td >'+aa[i].snub+'</td>\n' +
+                                            '                                    <td >'+aa[i].name+'</td>\n' +
+                                            '                                    <td >'+aa[i].clas+'</td>\n' +
+                                            '                                    <td >'+aa[i].phone+'</td>\n' +
+                                            '                                    <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" data-content="' + aa[i].content + '" >' + aa[i].content + '</a></td>\n' +
+                                            '                                   <td >' + aa[i].state + '</td>\n' +
+                                            '                                    <td ><a href="javascript:void(0)" ><button style="background: #51eb41;" class="kill_btn btn btn-success btn-sm" title="' + aa[i].id + '" onclick="Right(this)">审核</button></a></td>\n' +
+                                            '                                    <td ><a href="/rootDelete?id=' + aa[i].id + '" onclick="return(confirm(\'确认要删除记录吗？\'))"><button class="btn btn-danger btn-sm">驳回</button></a></td>\n' +
+                                            '                                </tr>';
+                                    }
+                                    var html_2='</table>';
+                                    $(".box_li2_3").append(html+html_1+html_2);
+
+                                $(".kill_btn").click(function () {
+                                    $(".box_u").toggle();
+                                    $("#Form input[type='reset']").attr('disabled', "true");
+                                    $("#sub").replaceWith('<input type=\"button" class="btn btn-primary" id="sub1" value="提交" >');
+                                    $.ajax({
+                                        url: "/SelectById_rootApply",
+                                        type: "get",
+                                        dataType: "json",
+                                        data: {"id": main_id},
+                                        success: function (data) {
+                                            var aa = data["maintain"];
+                                            var bb = data["state"];
+                                            console.log(aa);
+                                            console.log(aa.id);
+                                            console.log(bb);
+                                            if (bb == 1) {
+                                                $(".xi").val(aa.xi);
+                                                $(".clas").val(aa.clas);
+                                                $(".lnub").val(aa.lnub);
+                                                $(".snub").val(aa.snub);
+                                                $(".name").val(aa.name);
+                                                $(".phone").val(aa.phone);
+                                                $(".content_3").val(aa.content);
+                                            }
+
+                                        }
+                                    });
+                                    $("#sub1").click(function () {
+                                        for (var i = 0; i < 6; i++) {
+                                            if ($(".box_u input").eq(i).val() == "") {
+                                                alert($(".box_u input").eq(i).attr("title") + "::" + "不能为空");
+                                            }
+                                        }
+                                        if ($(".content_3").val() == "") {
+                                            alert("损损坏情况::不能为空");
+
+                                        } else if ($(".xi").val() != "" && $(".clas").val() != "" && $(".lnub").val() != "" && $(".snub").val() != "" &&
+                                            $(".name").val() != "" && $(".phone").val() != "" && $(".content_3").val() != "") {
+                                            var i = confirm("确认提交？");
+                                            if (i == true) {
+                                                $.ajax({
+                                                    url: "/UpDateById",
+                                                    type: "get",
+                                                    dataType: "text",
+                                                    data: {
+                                                        "id": main_id,
+                                                        "xi": $(".xi").val(),
+                                                        "clas": $(".clas").val(),
+                                                        "lnub": $(".lnub").val(),
+                                                        "snub": $(".snub").val(),
+                                                        "name": $(".name").val(),
+                                                        "phone": $(".phone").val(),
+                                                        "content": $(".content_3").val()
+                                                    },
+                                                    success: function (data) {
+                                                        console.log(data);
+                                                        if (data === "yes_1") {
+                                                            console.log("提交成功");
+                                                            $("#Form input[type='reset']").click();
+                                                            $(".box_u").hide();
+                                                            window.location.href = "/rootApply";
+                                                            alert("提交成功");
+                                                        }
+                                                    }
+
+                                                });
+                                            }
+
+                                        }
+
+                                    });
+
+                                })
+
+                            } else {
+                                $(".box_li2_3").append('<table class="table_1">\n' +
+                                    '                                <tr>\n' +
+                                    '                                    <th>序号</th>\n' +
+                                    '                                    <th>系别</th>\n' +
+                                    '                                    <th>楼号</th>\n' +
+                                    '                                    <th>宿舍号</th>\n' +
+                                    '                                    <th>姓名</th>\n' +
+                                    '                                    <th>学号</th>\n' +
+                                    '                                    <th>电话</th>\n' +
+                                    '                                    <th>损坏情况</th>\n' +
+                                    '                                    <th>审核状态</th>\n' +
+                                    '                                    <th colspan="2">操作</th>\n' +
+                                    '                                </tr>\n' + '</table>' +
+                                    '<span class="error" style="margin-left: 45%;">没有可查询数据</span>');
+                            }
+                        }
+
+
+                    });
+                }
+                else if($(".text1").val()!=""){
+                    $(".box_li2_3").empty();
+                    $.ajax({
+                        url: "/SelectMaintain_tableXiById",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            "xi": $(".text1").val(),
+                             "state":"待审核"
+                        },
+                        success: function (data) {
+                            var aa = data["maintain"];
+                            var bb = data["state"];
+                            console.log(aa);
+                            console.log(bb);
+                            var html='<table class="table_1">\n' +
+                                '                                <tr>\n' +
+                                '                                    <th><input type="checkbox"  class="AllCheck" ></th>\n' +
+                                '                                    <th>序号</th>\n' +
+                                '                                    <th>系别</th>\n' +
+                                '                                    <th>楼号</th>\n' +
+                                '                                    <th>宿舍号</th>\n' +
+                                '                                    <th>姓名</th>\n' +
+                                '                                    <th>学号</th>\n' +
+                                '                                    <th>电话</th>\n' +
+                                '                                    <th>损坏情况</th>\n' +
+                                '                                    <th>审核状态</th>\n' +
+                                '                                    <th colspan="2">操作</th>\n' +
+                                '                                </tr>';
+                            var html_1='';
+                            if (bb == 1) {
+                              for(var i=0;i<aa.length;i++){
+                                 html_1=html_1+'<tr  >\n' +
+                                     '                                    <td><input type="checkbox" title="'+aa[i].id+'" class="SomeCheck" ></td>\n' +
+                                     '                                    <td >'+(i+1)+'</td>\n' +
+                                     '                                    <td >'+aa[i].xi+'</td>\n' +
+                                     '                                    <td >'+aa[i].lnub+'</td>\n' +
+                                     '                                    <td >'+aa[i].snub+'</td>\n' +
+                                     '                                    <td >'+aa[i].name+'</td>\n' +
+                                     '                                    <td >'+aa[i].clas+'</td>\n' +
+                                     '                                    <td >'+aa[i].phone+'</td>\n' +
+                                     '                                    <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" data-content="' + aa[i].content + '" >' + aa[i].content + '</a></td>\n' +
+                                     '                                   <td >' + aa[i].state + '</td>\n' +
+                                     '                                    <td ><a href="javascript:void(0)" ><button style="background: #51eb41;" class="kill_btn btn btn-success btn-sm" title="' + aa[i].id + '" onclick="Right(this)">审核</button></a></td>\n' +
+                                     '                                    <td ><a href="/rootDelete?id=' + aa[i].id + '" onclick="return(confirm(\'确认要删除记录吗？\'))"><button class="btn btn-danger btn-sm">驳回</button></a></td>\n' +
+                                     '                                </tr>';
+                               }
+                              var html_2='</table>';
+                                $(".box_li2_3").append(html+html_1+html_2);
+                                $(".kill_btn").click(function () {
+                                    $(".box_u").toggle();
+                                    $("#Form input[type='reset']").attr('disabled', "true");
+                                    $("#sub").replaceWith('<input type=\"button" class="btn btn-primary" id="sub1" value="提交" >');
+                                    $.ajax({
+                                        url: "/SelectById_rootApply",
+                                        type: "get",
+                                        dataType: "json",
+                                        data: {"id": main_id},
+                                        success: function (data) {
+                                            var aa = data["maintain"];
+                                            var bb = data["state"];
+                                            console.log(aa);
+                                            console.log(aa.id);
+                                            console.log(bb);
+                                            if (bb == 1) {
+                                                $(".xi").val(aa.xi);
+                                                $(".clas").val(aa.clas);
+                                                $(".lnub").val(aa.lnub);
+                                                $(".snub").val(aa.snub);
+                                                $(".name").val(aa.name);
+                                                $(".phone").val(aa.phone);
+                                                $(".content_3").val(aa.content);
+                                            }
+
+                                        }
+                                    });
+                                    $("#sub1").click(function () {
+                                        for (var i = 0; i < 6; i++) {
+                                            if ($(".box_u input").eq(i).val() == "") {
+                                                alert($(".box_u input").eq(i).attr("title") + "::" + "不能为空");
+                                            }
+                                        }
+                                        if ($(".content_3").val() == "") {
+                                            alert("损坏情况::不能为空");
+
+                                        } else if ($(".xi").val() != "" && $(".clas").val() != "" && $(".lnub").val() != "" && $(".snub").val() != "" &&
+                                            $(".name").val() != "" && $(".phone").val() != "" && $(".content_3").val() != "") {
+                                            var i = confirm("确认提交？");
+                                            if (i == true) {
+                                                $.ajax({
+                                                    url: "/UpDateById",
+                                                    type: "get",
+                                                    dataType: "text",
+                                                    data: {
+                                                        "id": main_id,
+                                                        "xi": $(".xi").val(),
+                                                        "clas": $(".clas").val(),
+                                                        "lnub": $(".lnub").val(),
+                                                        "snub": $(".snub").val(),
+                                                        "name": $(".name").val(),
+                                                        "phone": $(".phone").val(),
+                                                        "content": $(".content_3").val()
+                                                    },
+                                                    success: function (data) {
+                                                        console.log(data);
+                                                        if (data === "yes_1") {
+                                                            console.log("提交成功");
+                                                            $("#Form input[type='reset']").click();
+                                                            $(".box_u").hide();
+                                                            window.location.href = "/rootApply";
+                                                            alert("提交成功");
+                                                        }
+                                                    }
+
+                                                });
+                                            }
+
+                                        }
+
+                                    });
+
+                                })
+
+                            } else {
+                                $(".box_li2_3").append('<table class="table_1">\n' +
+                                    '                                <tr>\n' +
+                                    '                                    <th>序号</th>\n' +
+                                    '                                    <th>系别</th>\n' +
+                                    '                                    <th>楼号</th>\n' +
+                                    '                                    <th>宿舍号</th>\n' +
+                                    '                                    <th>姓名</th>\n' +
+                                    '                                    <th>学号</th>\n' +
+                                    '                                    <th>电话</th>\n' +
+                                    '                                    <th>损坏情况</th>\n' +
+                                    '                                    <th>审核状态</th>\n' +
+                                    '                                    <th colspan="2">操作</th>\n' +
+                                    '                                </tr>\n' + '</table>' +
+                                    '<span class="error" style="margin-left: 45%;">没有可查询数据</span>');
+                            }
+                        }
+
+
+                    });
+                }
+                else if($(".text2").val()!=""){
+                    $(".box_li2_3").empty();
+                    $.ajax({
+                        url: "/SelectMaintain_table_LById",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            "lnub": $(".text2").val(),
+                            "state":"待审核"
+                        },
+                        success: function (data) {
+                            var aa = data["maintain"];
+                            var bb = data["state"];
+                            // console.log(aa[0].id);
+                            console.log(bb);
+                                var html='<table class="table_1">\n' +
+                                    '                                <tr>\n' +
+                                    '                                    <th><input type="checkbox"  class="AllCheck" ></th>\n' +
+                                    '                                    <th>序号</th>\n' +
+                                    '                                    <th>系别</th>\n' +
+                                    '                                    <th>楼号</th>\n' +
+                                    '                                    <th>宿舍号</th>\n' +
+                                    '                                    <th>姓名</th>\n' +
+                                    '                                    <th>学号</th>\n' +
+                                    '                                    <th>电话</th>\n' +
+                                    '                                    <th>损坏情况</th>\n' +
+                                    '                                    <th>审核状态</th>\n' +
+                                    '                                    <th colspan="2">操作</th>\n' +
+                                    '                                </tr>';
+                                var html_1='';
+                                if (bb == 1) {
+                                    for(var i=0;i<aa.length;i++){
+                                        html_1=html_1+'<tr  >\n' +
+                                            '                                    <td><input type="checkbox" title="'+aa[i].id+'" class="SomeCheck" ></td>\n' +
+                                            '                                    <td >'+(i+1)+'</td>\n' +
+                                            '                                    <td >'+aa[i].xi+'</td>\n' +
+                                            '                                    <td >'+aa[i].lnub+'</td>\n' +
+                                            '                                    <td >'+aa[i].snub+'</td>\n' +
+                                            '                                    <td >'+aa[i].name+'</td>\n' +
+                                            '                                    <td >'+aa[i].clas+'</td>\n' +
+                                            '                                    <td >'+aa[i].phone+'</td>\n' +
+                                            '                                    <td > <a href="#"  data-toggle="popover" data-placement="top" data-trigger="focus" data-content="' + aa[i].content + '" >' + aa[i].content + '</a></td>\n' +
+                                            '                                    <td >' + aa[i].state + '</td>\n' +
+                                            '                                    <td ><a href="javascript:void(0)" ><button style="background: #51eb41;" class="kill_btn btn btn-success btn-sm" title="' + aa[i].id + '" onclick="Right(this)">审核</button></a></td>\n' +
+                                            '                                    <td ><a href="/rootDelete?id=' + aa[i].id + '" onclick="return(confirm(\'确认要删除记录吗？\'))"><button class="btn btn-danger btn-sm">驳回</button></a></td>\n' +
+                                            '                                </tr>';
+                                    }
+                                    var html_2='</table>';
+                                    $(".box_li2_3").append(html+html_1+html_2);
+                                $(".kill_btn").click(function () {
+                                    $(".box_u").toggle();
+                                    $("#Form input[type='reset']").attr('disabled', "true");
+                                    $("#sub").replaceWith('<input type=\"button" class="btn btn-primary" id="sub1" value="提交" >');
+                                    $.ajax({
+                                        url: "/SelectById_rootApply",
+                                        type: "get",
+                                        dataType: "json",
+                                        data: {"id": main_id},
+                                        success: function (data) {
+                                            var aa = data["maintain"];
+                                            var bb = data["state"];
+                                            console.log(aa);
+                                            console.log(aa.id);
+                                            console.log(bb);
+                                            if (bb == 1) {
+                                                $(".xi").val(aa.xi);
+                                                $(".clas").val(aa.clas);
+                                                $(".lnub").val(aa.lnub);
+                                                $(".snub").val(aa.snub);
+                                                $(".name").val(aa.name);
+                                                $(".phone").val(aa.phone);
+                                                $(".content_3").val(aa.content);
+                                            }
+
+                                        }
+                                    });
+                                    $("#sub1").click(function () {
+                                        for (var i = 0; i < 6; i++) {
+                                            if ($(".box_u input").eq(i).val() == "") {
+                                                alert($(".box_u input").eq(i).attr("title") + "::" + "不能为空");
+                                            }
+                                        }
+                                        if ($(".content_3").val() == "") {
+                                            alert("损损坏情况::不能为空");
+
+                                        } else if ($(".xi").val() != "" && $(".clas").val() != "" && $(".lnub").val() != "" && $(".snub").val() != "" &&
+                                            $(".name").val() != "" && $(".phone").val() != "" && $(".content_3").val() != "") {
+                                            var i = confirm("确认提交？");
+                                            if (i == true) {
+                                                $.ajax({
+                                                    url: "/UpDateById",
+                                                    type: "get",
+                                                    dataType: "text",
+                                                    data: {
+                                                        "id": main_id,
+                                                        "xi": $(".xi").val(),
+                                                        "clas": $(".clas").val(),
+                                                        "lnub": $(".lnub").val(),
+                                                        "snub": $(".snub").val(),
+                                                        "name": $(".name").val(),
+                                                        "phone": $(".phone").val(),
+                                                        "content": $(".content_3").val()
+                                                    },
+                                                    success: function (data) {
+                                                        console.log(data);
+                                                        if (data === "yes_1") {
+                                                            console.log("提交成功");
+                                                            $("#Form input[type='reset']").click();
+                                                            $(".box_u").hide();
+                                                            window.location.href = "/rootApply";
+                                                            alert("提交成功");
+                                                        }
+                                                    }
+
+                                                });
+                                            }
+
+                                        }
+
+                                    });
+
+                                })
+
+                            } else {
+                                $(".box_li2_3").append('<table class="table_1">\n' +
+                                    '                                <tr>\n' +
+                                    '                                    <th>序号</th>\n' +
+                                    '                                    <th>系别</th>\n' +
+                                    '                                    <th>楼号</th>\n' +
+                                    '                                    <th>宿舍号</th>\n' +
+                                    '                                    <th>姓名</th>\n' +
+                                    '                                    <th>学号</th>\n' +
+                                    '                                    <th>电话</th>\n' +
+                                    '                                    <th>损坏情况</th>\n' +
+                                    '                                    <th>审核状态</th>\n' +
+                                    '                                    <th colspan="2">操作</th>\n' +
+                                    '                                </tr>\n' + '</table>' +
+                                    '<span class="error" style="margin-left: 45%;">没有可查询数据</span>');
+                            }
+                        }
+
+
+                    });
+                }
+
+
+        })
+
+    })
+</script>
+<script>
+    $(function () {
+        $(".sub").click(function () {
+                for (var i = 0; i < 6; i++) {
+                    if ($(".box_u input").eq(i).val() == "") {
+                        alert($(".box_u input").eq(i).attr("title") + "::" + "不能为空");
+                    }
+                }
+                if ($(".content_3").val() == "") {
+                    alert("损损坏情况::不能为空");
+
+                } else if ($(".xi").val() != "" && $(".clas").val() != "" && $(".lnub").val() != "" && $(".snub").val() != "" &&
+                    $(".name").val() != "" && $(".phone").val() != "" && $(".content_3").val() != "") {
+                    var i=confirm("确认提交？");
+                    if(i==true) {
+                        $.ajax({
+                            url: "/insertGo",
+                            type: "post",
+                            dataType: "text",
+                            data: {
+                                "xi": $(".xi").val(),
+                                "clas": $(".clas").val(),
+                                "lnub": $(".lnub").val(),
+                                "snub": $(".snub").val(),
+                                "name": $(".name").val(),
+                                "phone": $(".phone").val(),
+                                "content": $(".content_3").val()
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                if (data === "yes") {
+                                    console.log("提交成功");
+                                    $("#Form input[type='reset']").click();
+                                    $(".box_u").hide();
+                                    window.location.href = "/rootApply";
+                                    alert("提交成功");
+                                }
+                            }
+
+                        });
+                    }
+
+                }
+
+        });
+
+    })
+</script>
+<script>
+    var HTSDK = window.HTSDK || {};
+    HTSDK.infor={
+        //拖拽
+        dragAndDrop:function(){
+            var _move=false;
+            //鼠标离控件左上角的相对位置
+            var _x,
+                _y;
+            $(".wTop").mousedown(function(e){
+                _move = true;
+                _x = e.pageX-parseInt($(".win").css("left"));
+                _y = e.pageY-parseInt($(".win").css("top"));
+            });
+            $(document).mousemove(function(e){
+                if(_move){
+                    var x = e.pageX-_x;//移动时鼠标位置计算控件左上角的绝对位置
+                    var y = e.pageY-_y;
+                    $(".win").css({top:y,left:x});//控件新位置
+                }
+            }).mouseup(function(){
+                _move = false;
+            });
+        },
+        //初始化拖拽div的位置
+        initPosition:function(){
+            //计算初始化位置
+            var itop = ($(document).height()-$(".win").height())/2;
+            var ileft = ($(document).width()-$(".win").width())/1.2;
+            //设置被拖拽div的位置
+            $(".win").css({top:itop,left:ileft});
+        },
+        //点击显示按钮
+        clickShowBtn:function(){
+            $(".kill_btn").click(function (){
+                $(".win").show();
+            });
+            $(".btn_exit").click(function(){
+                $(".win").hide();
+            });
+        },
+        //入口
+        init:function(){
+            var _ts = this;
+            _ts.clickShowBtn();
+            _ts.initPosition();
+            _ts.dragAndDrop();
+        }
+    };
+    $(function(){
+        HTSDK.infor.init();
+    })
+</script>
+</body>
+</html>

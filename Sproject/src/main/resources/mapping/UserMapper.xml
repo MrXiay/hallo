@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.mapper.UserMapper">
+    <select id="Login" resultType="com.crm.dao.User" parameterType="com.crm.dao.User">
+        select * from user where number=#{number} and password=#{password}
+    </select>
+    <update id="UpdatePass">
+        update user set password=#{password} where number=#{number}
+    </update>
+    <insert id="InsertUser" parameterType="com.crm.dao.User">
+        insert  into user (number,name,password) values (#{number},#{name},#{password})
+    </insert>
+    <select id="SelectNumber" resultType="com.crm.dao.User" >
+        select * from user where number=#{number}
+    </select>
+</mapper>

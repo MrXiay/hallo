@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.mapper.MasterMapper">
+  <select id="SelectAllByLimit" resultType="com.crm.dao.Marster">
+      select * from master ORDER BY id desc limit 7
+  </select>
+    <select id="SelectAll" resultType="com.crm.dao.Marster">
+      select * from master order by id desc
+  </select>
+    <select id="SelectAllByName" resultType="com.crm.dao.Marster">
+      select * from master where name like concat('%',#{name},'%')
+  </select>
+    <delete id="DellMasterById">
+       delete  from master where id=#{id}
+    </delete>
+    <update id="UpdateMasterById">
+         update master set phone=#{phone},location=#{location} where id=#{id}
+    </update>
+    <insert id="InsertMaster" parameterType="com.crm.dao.Maintain">
+        insert into master(name,phone,location)values (#{name},#{phone},#{location})
+    </insert>
+    <select id="CountMaster" resultType="java.lang.Integer">
+       select count(*)  from master
+    </select>
+    <select id="PageSelectMaster" resultType="com.crm.dao.Maintain">
+         select * from master ORDER BY id desc LIMIT #{id},#{idE}
+    </select>
+</mapper>
